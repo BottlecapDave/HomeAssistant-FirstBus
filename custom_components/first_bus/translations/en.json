@@ -1,0 +1,34 @@
+{
+  "title": "First Bus",
+  "config": {
+    "step": {
+      "user": {
+        "title": "First Bus Stop",
+        "description": "Setup your bus stop information.",
+        "data": {
+          "STOP": "Stop ATCO code",
+          "BUSES": "The buses you want to filter the bus stop to. If you want all buses, leave blank."
+        }
+      }
+    },
+    "error": {
+    },
+    "abort": {
+    }
+  },
+  "options": {
+    "step": {
+      "user": {
+        "title": "First Bus Stop",
+        "description": "Update your bus stop information.",
+        "data": {
+          "BUSES": "The buses you want to filter the bus stop to. If you want all buses, leave blank."
+        }
+      }
+    },
+    "error": {
+    },
+    "abort": {
+    }
+  }
+}

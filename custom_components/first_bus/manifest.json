@@ -1,0 +1,16 @@
+{
+  "domain": "first_bus",
+  "name": "First Bus",
+  "config_flow": true,
+  "documentation": "https://github.com/BottlecapDave/HomeAssistant-FirstBus/",
+  "issue_tracker": "https://github.com/BottlecapDave/HomeAssistant-FirstBus/issues",
+  "ssdp": [],
+  "zeroconf": [],
+  "homekit": {},
+  "dependencies": [],
+  "codeowners": [
+    "@bottlecapdave"
+  ],
+  "version": "2021.10.01",
+  "iot_class": "cloud_polling"
+}
