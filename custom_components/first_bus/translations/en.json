@@ -6,8 +6,9 @@
         "title": "First Bus Stop",
         "description": "Setup your bus stop information.",
         "data": {
-          "STOP": "Stop ATCO code",
-          "BUSES": "The buses you want to filter the bus stop to. If you want all buses, leave blank."
+          "Name": "The friendly name for the stop",
+          "Stop": "Stop ATCO code",
+          "Buses": "The buses you want to filter the bus stop to. If you want all buses, leave blank."
         }
       }
     },
@@ -22,7 +23,8 @@
         "title": "First Bus Stop",
         "description": "Update your bus stop information.",
         "data": {
-          "BUSES": "The buses you want to filter the bus stop to. If you want all buses, leave blank."
+          "Name": "The friendly name for the stop",
+          "Buses": "The buses you want to filter the bus stop to. If you want all buses, leave blank."
         }
       }
     },

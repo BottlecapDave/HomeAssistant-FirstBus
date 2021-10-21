@@ -19,15 +19,14 @@ class FirstBusApiClient:
   async def async_get_next_bus(self, stop, buses):
     """Get the user's account"""
     async with aiohttp.ClientSession() as client:
-      auth = aiohttp.BasicAuth(self._api_key, '')
       url = f'{self._base_url}/getNextBus?stop={stop}'
-      async with client.get(url, auth=auth) as response:
+      async with client.get(url) as response:
         # Disable content type check as sometimes it can report text/html
         data = await response.json(content_type=None)
 
         if ("times" in data):
           for time in data["times"]:
-            if (time["serviceNumber"] in buses):
+            if (time["ServiceNumber"] in buses):
               matches = re.search(REGEX_TIME, time["Due"])
               if (matches != None):
                 local_now = now()
@@ -38,7 +37,7 @@ class FirstBusApiClient:
                   raise Exception(f'Unable to extract due time: {time["Due"]}')
                 
                 local_now = now()
-                time["Due"] = as_local(parse_datetime(local_now.strftime(f"%Y-%m-%dT%H:{matches[1]}{local_now.strftime('%z')}")))
+                time["Due"] = local_now + timedelta(minutes=int(matches[1]))
 
               if (time["Due"] < now()):
                 time["Due"] = time["Due"] + timedelta(days=1)

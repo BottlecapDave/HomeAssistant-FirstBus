@@ -1,13 +1,14 @@
-from datetime import timedelta
+from datetime import (timedelta)
 import logging
 
-from homeassistant.util.dt import (now, as_utc)
+from homeassistant.util.dt import (now)
 from homeassistant.components.sensor import (
-    DEVICE_CLASS_TIMESTAMP,
     SensorEntity,
 )
 from .const import (
+  CONFIG_NAME,
   CONFIG_STOP,
+  CONFIG_BUSES
 )
 
 from .api_client import (FirstBusApiClient)
@@ -33,6 +34,7 @@ class FirstBusNextBus(SensorEntity):
     self._data = data
     self._attributes = {}
     self._state = None
+    self._minsSinceLastUpdate = 0
 
   @property
   def unique_id(self):
@@ -42,12 +44,7 @@ class FirstBusNextBus(SensorEntity):
   @property
   def name(self):
     """Name of the sensor."""
-    return f"First Bus {self._data[CONFIG_STOP]} Next Bus"
-
-  @property
-  def device_class(self):
-    """The type of sensor"""
-    return DEVICE_CLASS_TIMESTAMP
+    return f"First Bus {self._data[CONFIG_NAME]} Next Bus"
 
   @property
   def icon(self):
@@ -62,19 +59,23 @@ class FirstBusNextBus(SensorEntity):
   @property
   def state(self):
     """The state of the sensor."""
-    return self._state
+    current_datetime = now()
+    if self._state != None:
+      return (self._state - current_datetime).seconds // 60
+    else:
+      return -1 
 
   async def async_update(self):
-    """Retrieve the latest consumption"""
-    # We only need to do this every half an hour
-    current_datetime = now()
-    if (current_datetime.minute % 30) == 0 or self._state == None:
-      _LOGGER.info('Updating OctopusEnergyLatestElectricityReading')
+    """Retrieve the next bus"""
+    self._minsSinceLastUpdate = self._minsSinceLastUpdate + 1
 
-      period_from = as_utc(current_datetime - timedelta(hours=1))
-      period_to = as_utc(current_datetime)
-      data = await self._client.async_electricity_consumption(self._mpan, self._serial_number, period_from, period_to)
-      if data != None and len(data) > 0:
-        self._state = data[0]["consumption"]
+    # We only want to update every 5 minutes so we don't hammer the service
+    if self._minsSinceLastUpdate >= 5:
+      next_time = await self._client.async_get_next_bus(self._data[CONFIG_STOP], self._data[CONFIG_BUSES])
+      self._attributes = next_time
+      self._minsSinceLastUpdate = 0
+
+      if next_time != None:
+        self._state = next_time["Due"]
       else:
-        self._state = 0
+        self._state = None

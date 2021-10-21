@@ -6,6 +6,7 @@ from homeassistant.core import callback
 from .const import (
   DOMAIN,
 
+  CONFIG_NAME,
   CONFIG_STOP,
   CONFIG_BUSES,
 
@@ -21,9 +22,14 @@ class FirstBusConfigFlow(ConfigFlow, domain=DOMAIN):
     """Setup based on user config"""
 
     if user_input is not None:
+      if user_input[CONFIG_BUSES] != None:
+        user_input[CONFIG_BUSES] = user_input[CONFIG_BUSES].split(",")
+      else:
+        user_input[CONFIG_BUSES] = []
+
       # Setup our basic sensors
       return self.async_create_entry(
-        title=f"Bus Stop {user_input[CONFIG_STOP]}", 
+        title=f"Bus Stop {user_input[CONFIG_NAME]}", 
         data=user_input
       )
 
