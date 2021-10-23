@@ -55,12 +55,29 @@ class OptionsFlowHandler(OptionsFlow):
   def __init__(self, entry) -> None:
     self._entry = entry
 
+  async def async_step_init(self, user_input):
+    """Manage the options for the custom component."""
+
+    config = dict(self._entry.data)
+    if self._entry.options is not None:
+      config.update(self._entry.options)
+
+    return self.async_show_form(
+      step_id="user", 
+      data_schema=vol.Schema({
+        vol.Optional(CONFIG_BUSES, default=config[CONFIG_BUSES]): str,
+      })
+    )
+
   async def async_step_user(self, user_input):
     """Manage the options for the custom component."""
 
     errors = {}
+    config = dict(self._entry.data)
+    if self._entry.options is not None:
+      config.update(self._entry.options)
+
     if user_input is not None:
-      config = dict(self._entry.data)
       config.update(user_input)
 
       if CONFIG_BUSES in config and config[CONFIG_BUSES] != None:

@@ -49,7 +49,7 @@ class FirstBusNextBus(SensorEntity):
   @property
   def icon(self):
     """Icon of the sensor."""
-    return "mdi:camera-timer"
+    return "mdi:bus"
 
   @property
   def extra_state_attributes(self):
