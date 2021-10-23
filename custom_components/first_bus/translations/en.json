@@ -8,11 +8,12 @@
         "data": {
           "Name": "The friendly name for the stop",
           "Stop": "Stop ATCO code",
-          "Buses": "The buses you want to filter the bus stop to. If you want all buses, leave blank."
+          "Buses": "The buses you want to filter to. If you want all buses, leave blank."
         }
       }
     },
     "error": {
+      "invalid_buses": "Buses must be alphanumeric separated by commas"
     },
     "abort": {
     }
@@ -24,11 +25,12 @@
         "description": "Update your bus stop information.",
         "data": {
           "Name": "The friendly name for the stop",
-          "Buses": "The buses you want to filter the bus stop to. If you want all buses, leave blank."
+          "Buses": "The buses you want to filter to. If you want all buses, leave blank."
         }
       }
     },
     "error": {
+      "invalid_buses": "Buses must be alphanumeric separated by commas"
     },
     "abort": {
     }

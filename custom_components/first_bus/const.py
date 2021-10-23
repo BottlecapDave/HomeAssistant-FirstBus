@@ -6,7 +6,8 @@ CONFIG_NAME = "Name"
 CONFIG_STOP = "Stop"
 CONFIG_BUSES = "Buses"
 
-REGEX_TIME="[0-9]{2}:[0-9]{2}"
+REGEX_BUSES="^[a-zA-Z0-9]+(,[a-zA-Z0-9]+)*$"
+REGEX_TIME="^[0-9]{2}:[0-9]{2}$"
 REGEX_TIME_MINS="([0-9]+) mins"
 
 DATA_SCHEMA_STOP = vol.Schema({
