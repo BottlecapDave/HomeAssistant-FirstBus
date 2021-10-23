@@ -37,7 +37,7 @@ class FirstBusApiClient:
                   raise Exception(f'Unable to extract due time: {time["Due"]}')
                 
                 local_now = now()
-                time["Due"] = local_now + timedelta(minutes=int(matches[1]))
+                time["Due"] = local_now.replace(second=0, microsecond=0) + timedelta(minutes=int(matches[1]))
 
               if (time["Due"] < now()):
                 time["Due"] = time["Due"] + timedelta(days=1)
