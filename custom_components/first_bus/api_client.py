@@ -34,10 +34,13 @@ class FirstBusApiClient:
               else:
                 matches = re.search(REGEX_TIME_MINS, time["Due"])
                 if (matches == None):
-                  raise Exception(f'Unable to extract due time: {time["Due"]}')
-                
-                local_now = now()
-                time["Due"] = local_now.replace(second=0, microsecond=0) + timedelta(minutes=int(matches[1]))
+                  if time["Due"] == "Due now":
+                    time["Due"] = now()
+                  else:
+                    raise Exception(f'Unable to extract due time: {time["Due"]}')
+                else:
+                  local_now = now()
+                  time["Due"] = local_now.replace(second=0, microsecond=0) + timedelta(minutes=int(matches[1]))
 
               if (time["Due"] < now()):
                 time["Due"] = time["Due"] + timedelta(days=1)
