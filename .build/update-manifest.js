@@ -6,5 +6,9 @@ const file = require(fileName);
 file.version = process.argv[2];
     
 fs.writeFile(fileName, JSON.stringify(file, null, 2), function writeJSON(err) {
-  return console.log(err);
+  if (err) {
+    return console.log(err);
+  }
+
+  return `Updated version to ${file.version}`;
 });
