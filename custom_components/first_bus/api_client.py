@@ -26,7 +26,7 @@ class FirstBusApiClient:
 
         if ("times" in data):
           for time in data["times"]:
-            if (time["ServiceNumber"] in buses):
+            if (buses == None or len(buses) == 0 or time["ServiceNumber"] in buses):
               matches = re.search(REGEX_TIME, time["Due"])
               if (matches != None):
                 local_now = now()
