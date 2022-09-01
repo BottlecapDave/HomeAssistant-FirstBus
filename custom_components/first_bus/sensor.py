@@ -73,6 +73,7 @@ class FirstBusNextBus(SensorEntity):
     if self._minsSinceLastUpdate >= 5:
       next_time = await self._client.async_get_next_bus(self._data[CONFIG_STOP], self._data[CONFIG_BUSES])
       self._attributes = next_time
+      self._attributes["stop"] = self._data[CONFIG_STOP]
       self._minsSinceLastUpdate = 0
 
       if next_time != None:
