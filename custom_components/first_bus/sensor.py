@@ -57,6 +57,10 @@ class FirstBusNextBus(SensorEntity):
     return self._attributes
 
   @property
+  def native_unit_of_measurement(self):
+    return "minutes"
+
+  @property
   def state(self):
     """The state of the sensor."""
     current_datetime = now()
