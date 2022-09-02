@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/BottlecapDave/HomeAssistant-FirstBus/compare/v1.1.0...v1.1.1) (2022-09-02)
+
+
+### Bug Fixes
+
+* **sensor:** Added unit of measurement so value isn't present in log book ([7cc38bf](https://github.com/BottlecapDave/HomeAssistant-FirstBus/commit/7cc38bfb3ec6c61b09f915cb5b1d77597e19e8e0))
+
 # [1.1.0](https://github.com/BottlecapDave/HomeAssistant-FirstBus/compare/v1.0.3...v1.1.0) (2022-09-02)
 
 
