@@ -1,3 +1,15 @@
+# [1.1.0](https://github.com/BottlecapDave/HomeAssistant-FirstBus/compare/v1.0.3...v1.1.0) (2022-09-02)
+
+
+### Bug Fixes
+
+* **config:** Fixed updating buses to other buses ([9297c86](https://github.com/BottlecapDave/HomeAssistant-FirstBus/commit/9297c86575d8200f3a6339c354e87554c0b99566))
+
+
+### Features
+
+* **sensor:** Added stop code to bus sensor ([536fa87](https://github.com/BottlecapDave/HomeAssistant-FirstBus/commit/536fa87eb4b1c24a36d168dfc1dcbbbaeff07877))
+
 ## [1.0.3](https://github.com/BottlecapDave/HomeAssistant-FirstBus/compare/v1.0.2...v1.0.3) (2022-08-31)
 
 
