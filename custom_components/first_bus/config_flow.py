@@ -1,5 +1,6 @@
 import voluptuous as vol
 import re
+import logging
 
 from homeassistant.config_entries import (ConfigFlow, OptionsFlow)
 from homeassistant.core import callback
@@ -13,6 +14,8 @@ from .const import (
   DATA_SCHEMA_STOP,
   REGEX_BUSES,
 )
+
+_LOGGER = logging.getLogger(__name__)
 
 class FirstBusConfigFlow(ConfigFlow, domain=DOMAIN): 
   """Config flow."""
@@ -65,7 +68,7 @@ class OptionsFlowHandler(OptionsFlow):
     return self.async_show_form(
       step_id="user", 
       data_schema=vol.Schema({
-        vol.Optional(CONFIG_BUSES, default=config[CONFIG_BUSES]): str,
+        vol.Optional(CONFIG_BUSES, default=','.join(config[CONFIG_BUSES])): str,
       })
     )
 
@@ -80,22 +83,24 @@ class OptionsFlowHandler(OptionsFlow):
     if user_input is not None:
       config.update(user_input)
 
-      if CONFIG_BUSES in config and config[CONFIG_BUSES] != None:
-        matches = re.search(REGEX_BUSES, config[CONFIG_BUSES])
-        if (matches == None):
-          errors[CONFIG_BUSES] = "invalid_buses"
-        else:
-          config[CONFIG_BUSES] = config[CONFIG_BUSES].split(",")
-      else:
-        config[CONFIG_BUSES] = []
+    _LOGGER.debug(f"Update config {config}")
 
-      if len(errors) < 1:
-        return self.async_create_entry(title="", data=config)
+    if CONFIG_BUSES in config and config[CONFIG_BUSES] != None and len(config[CONFIG_BUSES]) > 0:
+      matches = re.search(REGEX_BUSES, config[CONFIG_BUSES])
+      if (matches == None):
+        errors[CONFIG_BUSES] = "invalid_buses"
+      else:
+        config[CONFIG_BUSES] = config[CONFIG_BUSES].split(",")
+    else:
+      config[CONFIG_BUSES] = []
+
+    if len(errors) < 1:
+      return self.async_create_entry(title="", data=config)
 
     return self.async_show_form(
       step_id="user", 
       data_schema=vol.Schema({
-        vol.Optional(CONFIG_BUSES, default=config[CONFIG_BUSES]): str,
+        vol.Optional(CONFIG_BUSES, default=','.join(config[CONFIG_BUSES])): str,
       }),
       errors=errors
     )
