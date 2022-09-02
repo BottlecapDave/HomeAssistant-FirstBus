@@ -17,10 +17,28 @@ jobs:
         uses: "hacs/action@main"
         with:
           category: "integration"
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: asdf_install
+        uses: asdf-vm/actions/install@v1
+      - name: Install Python modules
+        run: |
+          pip install -r requirements.test.txt
+      - name: Integration tests suite
+        run: |
+          python -m pytest tests/integration
   release:
     name: Release
     if: github.ref == 'refs/heads/main'
-    needs: validate
+    needs:
+    - validate
+    - test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
