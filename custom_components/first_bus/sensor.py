@@ -64,7 +64,7 @@ class FirstBusNextBus(SensorEntity):
   def state(self):
     """The state of the sensor."""
     current_datetime = now()
-    if self._state != None:
+    if self._state != None and self._state >= current_datetime:
       return (self._state - current_datetime).seconds // 60
     else:
       return -1 
