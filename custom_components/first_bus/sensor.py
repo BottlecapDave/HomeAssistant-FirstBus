@@ -71,14 +71,14 @@ class FirstBusNextBus(SensorEntity):
 
   async def async_update(self):
     """Retrieve the next bus"""
-    self._minsSinceLastUpdate = self._minsSinceLastUpdate + 1
+    self._minsSinceLastUpdate = self._minsSinceLastUpdate - 1
 
     # We only want to update every 5 minutes so we don't hammer the service
-    if self._minsSinceLastUpdate >= 5:
+    if self._minsSinceLastUpdate <= 0:
       next_time = await self._client.async_get_next_bus(self._data[CONFIG_STOP], self._data[CONFIG_BUSES])
       self._attributes = next_time
       self._attributes["stop"] = self._data[CONFIG_STOP]
-      self._minsSinceLastUpdate = 0
+      self._minsSinceLastUpdate = 5
 
       if next_time != None:
         self._state = next_time["Due"]
