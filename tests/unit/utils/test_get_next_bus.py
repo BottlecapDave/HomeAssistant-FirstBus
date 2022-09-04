@@ -7,29 +7,39 @@ now = parse_datetime('2022-01-01T10:00:00Z')
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("target_buses,expected_bus_index",[
-  (None, 0),
-  ([], 0),
-  (["42"], 1),
+  (None, 1),
+  ([], 1),
+  (["42"], 2),
   (["19"], None),
 ])
 async def test_when_get_next_bus_is_called_then_due_timestamp_is_correct(target_buses, expected_bus_index):
   # Arrange
-  buses = [{
+  buses = [
+    {
+      'ServiceRef': '0', 
+      'ServiceNumber': '49', 
+      'Destination': 'Newton Road Shops', 
+      'Due': now + timedelta(days=1, minutes=64), 
+      'IsFG': 'N', 
+      'IsLive': 'Y'
+    },
+    {
     'ServiceRef': '0', 
     'ServiceNumber': '43', 
     'Destination': 'Newton Road Shops', 
     'Due': now + timedelta(minutes=35), 
     'IsFG': 'N', 
     'IsLive': 'Y'
-  },
-  {
-    'ServiceRef': '0', 
-    'ServiceNumber': '42', 
-    'Destination': 'Newton Road Shops', 
-    'Due': now + timedelta(minutes=64), 
-    'IsFG': 'N', 
-    'IsLive': 'Y'
-  }]
+    },
+    {
+      'ServiceRef': '0', 
+      'ServiceNumber': '42', 
+      'Destination': 'Newton Road Shops', 
+      'Due': now + timedelta(minutes=64), 
+      'IsFG': 'N', 
+      'IsLive': 'Y'
+    }
+  ]
   
   expected_next_bus = None
   if expected_bus_index != None:

@@ -9,14 +9,15 @@ class MockedFirstBusApiClient:
   async def async_get_buses(self, stop):
     return self._buses
 
-now = parse_datetime('2022-01-01T10:00:00Z')
+now = parse_datetime('2022-01-01T10:00:00+01:00')
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("raw_due,expected_due",[
-  ("35 mins", parse_datetime('2022-01-01T10:35:00Z')),
-  ("Due now", parse_datetime('2022-01-01T10:00:00Z')),
-  ("09:16", parse_datetime('2022-01-02T09:16:00Z')),
-  ("11:16", parse_datetime('2022-01-01T11:16:00Z')),
+  ("35 mins", parse_datetime('2022-01-01T10:35:00+01:00')),
+  ("Due now", parse_datetime('2022-01-01T10:00:00+01:00')),
+  ("10:00", parse_datetime('2022-01-01T10:00:00+01:00')),
+  ("09:59", parse_datetime('2022-01-02T09:59:00+01:00')),
+  ("10:01", parse_datetime('2022-01-01T10:01:00+01:00')),
 ])
 async def test_when_get_buses_is_called_and_set_time_in_past_is_returned_then_due_timestamp_is_correct(raw_due, expected_due):
   # Arrange

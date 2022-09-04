@@ -14,8 +14,9 @@ _LOGGER = logging.getLogger(__name__)
 
 async def async_get_buses(api_client: FirstBusApiClient, stop, current_timestamp):
   bus_times = await api_client.async_get_buses(stop)
+  _LOGGER.debug(f'buses: {bus_times}')
+  
   for bus_time in bus_times:
-    _LOGGER.debug(f'next bus: {bus_time}')
     matches = re.search(REGEX_TIME, bus_time["Due"])
     if (matches != None):
       bus_time["Due"] = as_local(parse_datetime(current_timestamp.strftime(f"%Y-%m-%dT{bus_time['Due']}{current_timestamp.strftime('%z')}")))
@@ -30,18 +31,20 @@ async def async_get_buses(api_client: FirstBusApiClient, stop, current_timestamp
         bus_time["Due"] = current_timestamp.replace(minute=0, second=0, microsecond=0) + timedelta(minutes=int(matches[1]))
 
     if (bus_time["Due"] < current_timestamp.replace(second=0, microsecond=0)):
+      _LOGGER.debug(f'Moving due timestamp to next day: Due: {bus_time["Due"]}; Current Timestamp: {current_timestamp}')
       bus_time["Due"] = bus_time["Due"] + timedelta(days=1)
   
   return bus_times
 
 def get_next_bus(bus_times, target_buses, current_timestamp):
+  next_bus = None
   for bus_time in bus_times:
     if (target_buses == None or len(target_buses) == 0 or bus_time["ServiceNumber"] in target_buses):
 
-      if bus_time["Due"] >= current_timestamp.replace(second=0, microsecond=0):
-        return bus_time
+      if bus_time["Due"] >= current_timestamp.replace(second=0, microsecond=0) and (next_bus == None or next_bus["Due"] > bus_time["Due"]):
+        next_bus = bus_time
 
-  return None
+  return next_bus
 
 def calculate_minutes_remaining(target_timestamp, current_timestamp):
   if target_timestamp != None and target_timestamp >= current_timestamp:
