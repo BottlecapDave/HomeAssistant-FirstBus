@@ -7,7 +7,7 @@ from .const import (
 )
 
 from datetime import (timedelta)
-from homeassistant.util.dt import (as_local, parse_datetime)
+from homeassistant.util.dt import (parse_datetime)
 from .api_client import FirstBusApiClient
 
 _LOGGER = logging.getLogger(__name__)
@@ -19,7 +19,7 @@ async def async_get_buses(api_client: FirstBusApiClient, stop, current_timestamp
   for bus_time in bus_times:
     matches = re.search(REGEX_TIME, bus_time["Due"])
     if (matches != None):
-      bus_time["Due"] = as_local(parse_datetime(current_timestamp.strftime(f"%Y-%m-%dT{bus_time['Due']}{current_timestamp.strftime('%z')}")))
+      bus_time["Due"] = parse_datetime(current_timestamp.strftime(f"%Y-%m-%dT{bus_time['Due']}{current_timestamp.strftime('%z')}"))
     else:
       matches = re.search(REGEX_TIME_MINS, bus_time["Due"])
       if (matches == None):
@@ -28,7 +28,7 @@ async def async_get_buses(api_client: FirstBusApiClient, stop, current_timestamp
         else:
           raise Exception(f'Unable to extract due time: {bus_time["Due"]}')
       else:
-        bus_time["Due"] = current_timestamp.replace(minute=0, second=0, microsecond=0) + timedelta(minutes=int(matches[1]))
+        bus_time["Due"] = current_timestamp.replace(second=0, microsecond=0) + timedelta(minutes=int(matches[1]))
 
     if (bus_time["Due"] < current_timestamp.replace(second=0, microsecond=0)):
       _LOGGER.debug(f'Moving due timestamp to next day: Due: {bus_time["Due"]}; Current Timestamp: {current_timestamp}')
