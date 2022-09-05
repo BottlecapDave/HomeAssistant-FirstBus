@@ -1,3 +1,11 @@
+## [1.1.2](https://github.com/BottlecapDave/HomeAssistant-FirstBus/compare/v1.1.1...v1.1.2) (2022-09-05)
+
+
+### Bug Fixes
+
+* **sensor:** Fixed minutes remaining to take account if target bus time is before now ([55a27ec](https://github.com/BottlecapDave/HomeAssistant-FirstBus/commit/55a27ecbcc0cd61e506c4221454715f6da5b0df5))
+* **sensor:** Updated sensor to get next bus straight away ([d1d8017](https://github.com/BottlecapDave/HomeAssistant-FirstBus/commit/d1d8017d9f2ad01cad3a6f6124ccb2bea89f49bb))
+
 ## [1.1.1](https://github.com/BottlecapDave/HomeAssistant-FirstBus/compare/v1.1.0...v1.1.1) (2022-09-02)
 
 
