@@ -13,7 +13,7 @@ stops = ["0170SGB20116", "3800C509801", "2200YEA00934"]
 @pytest.mark.parametrize("target_buses",[
   ([]),
   (None),
-  (["42", "99", "350"]),
+  (["6", "99", "350"]),
 ])
 async def test_when_get_next_bus_is_called_then_next_bus_is_returned(target_buses):
     # Arrange
