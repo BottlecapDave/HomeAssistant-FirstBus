@@ -1,7 +1,7 @@
 name: Main
 on:
   schedule:
-    - cron:  '0 1 * * *'
+    - cron:  '0 6 * * *'
   push:
     branches:
       - develop
@@ -30,6 +30,9 @@ jobs:
       - name: Install Python modules
         run: |
           pip install -r requirements.test.txt
+      - name: Unit tests suite
+        run: |
+          python -m pytest tests/unit
       - name: Integration tests suite
         run: |
           python -m pytest tests/integration

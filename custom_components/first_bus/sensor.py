@@ -12,6 +12,11 @@ from .const import (
 )
 
 from .api_client import (FirstBusApiClient)
+from .utils import (
+  get_next_bus,
+  async_get_buses,
+  calculate_minutes_remaining
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -32,6 +37,7 @@ class FirstBusNextBus(SensorEntity):
 
     self._client = FirstBusApiClient()
     self._data = data
+    self._buses = []
     self._attributes = {}
     self._state = None
     self._minsSinceLastUpdate = 0
@@ -63,24 +69,26 @@ class FirstBusNextBus(SensorEntity):
   @property
   def state(self):
     """The state of the sensor."""
-    current_datetime = now()
-    if self._state != None:
-      return (self._state - current_datetime).seconds // 60
-    else:
-      return -1 
+    return calculate_minutes_remaining(self._state, now()) 
 
   async def async_update(self):
     """Retrieve the next bus"""
-    self._minsSinceLastUpdate = self._minsSinceLastUpdate + 1
+    self._minsSinceLastUpdate = self._minsSinceLastUpdate - 1
 
     # We only want to update every 5 minutes so we don't hammer the service
-    if self._minsSinceLastUpdate >= 5:
-      next_time = await self._client.async_get_next_bus(self._data[CONFIG_STOP], self._data[CONFIG_BUSES])
-      self._attributes = next_time
-      self._attributes["stop"] = self._data[CONFIG_STOP]
-      self._minsSinceLastUpdate = 0
+    if self._minsSinceLastUpdate <= 0:
+      buses = await async_get_buses(self._client, self._data[CONFIG_STOP], now())
+      self._buses = buses
+      self._minsSinceLastUpdate = 5
+    
+    next_bus = get_next_bus(self._buses, self._data[CONFIG_BUSES], now())
+    self._attributes = next_bus
+    if (self._attributes == None):
+      self._attributes = {}
+    
+    self._attributes["stop"] = self._data[CONFIG_STOP]
 
-      if next_time != None:
-        self._state = next_time["Due"]
-      else:
-        self._state = None
+    if next_bus != None:
+      self._state = next_bus["Due"]
+    else:
+      self._state = None
