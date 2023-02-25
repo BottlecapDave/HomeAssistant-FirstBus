@@ -12,6 +12,6 @@
   "iot_class": "cloud_polling",
   "issue_tracker": "https://github.com/BottlecapDave/HomeAssistant-FirstBus/issues",
   "ssdp": [],
-  "version": "1.1.1",
+  "version": "1.1.2",
   "zeroconf": []
 }
