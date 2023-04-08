@@ -1,5 +1,8 @@
 # HomeAssistant-FirstBus
 
+
+[![installation_badge](https://img.shields.io/badge/dynamic/json?color=41BDF5&logo=home-assistant&label=integration%20usage&suffix=%20installs&cacheSeconds=15600&url=https://analytics.home-assistant.io/custom_integrations.json&query=$.first_bus.total)](https://github.com/hacs/integration)
+
 Custom component built to bring you bus times for First Buses. This was built because buses in my area stopped having live times available in [UK Transport integration](https://www.home-assistant.io/integrations/uk_transport/), and time tabled based times were only available using the more expensive `nextbuses` call.
 
 ** WARNING: This component uses a private API used by [First Bus website](https://www.firstbus.co.uk/next-bus), so it could break at any time. I will do my best to keep the component working. **
