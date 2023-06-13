@@ -5,7 +5,6 @@
 - [HomeAssistant-FirstBus](#homeassistant-firstbus)
   - [How to install](#how-to-install)
     - [HACS](#hacs)
-    - [HACS](#hacs-1)
     - [Manual](#manual)
   - [How to setup](#how-to-setup)
     - [ATCO code](#atco-code)
@@ -19,8 +18,6 @@ This is unofficial and in no way endorsed by First Bus.
 ** WARNING: This component uses a private API used by [First Bus website](https://www.firstbus.co.uk/next-bus), so it could break at any time. I will do my best to keep the component working. **
 
 ## How to install
-
-### HACS
 
 ### HACS
 
