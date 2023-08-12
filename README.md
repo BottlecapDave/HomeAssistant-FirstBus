@@ -63,6 +63,8 @@ You can setup the integration as many times as you like, with each time tracking
 
 Each instance will create a single sensor in the form `sensor.first_bus_<<NAME_OF_SENSOR>>_next_bus`. This will provide the number of minutes until one of the specified buses (or any if no specific buses were specified) reach the bus stop. If there is no known next bus, then `none`/`unknown` will be returned.
 
+The sensor will pull the latest times for the stop every **5 minutes**. This is done so that the unofficial API isn't hammered and support is taken away, and I felt 5 minutes was long enough so that information wasn't too stale. This means that there is a chance that the time won't reflect the times on the app/website if they are updated within this 5 minute timeframe.
+
 The following attributes are available in addition
 
 | Attribute | Notes |
