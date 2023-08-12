@@ -25,18 +25,18 @@ async def test_when_get_next_bus_is_called_then_next_bus_is_returned(target_buse
         try:
             # Act
             buses = await async_get_buses(client, stop, now())
-            assert buses != None
+            assert buses is not None
             assert len(buses) > 0
             
             next_bus = get_next_bus(buses, target_buses, now())
 
             # Assert
-            assert next_bus != None
+            assert next_bus is not None
             assert "Due" in next_bus
             assert next_bus["Due"].replace(tzinfo=pytz.UTC) >= datetime.utcnow().replace(tzinfo=pytz.UTC)
 
             assert "ServiceNumber" in next_bus
-            if target_buses != None and len(target_buses) > 0:
+            if target_buses is not None and len(target_buses) > 0:
                 assert next_bus["ServiceNumber"] in target_buses
 
             assert "Destination" in next_bus

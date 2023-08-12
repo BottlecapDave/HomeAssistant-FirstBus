@@ -1,8 +1,4 @@
-from datetime import datetime
-import pytz
 import pytest
-
-from homeassistant.util.dt import (now)
 
 from custom_components.first_bus.api_client import FirstBusApiClient
 
@@ -19,21 +15,21 @@ async def test_when_get_buses_is_called_then_next_bus_is_returned():
         try:
             # Act
             buses = await client.async_get_buses(stop)
-            assert buses != None
+            assert buses is not None
             assert len(buses) > 0
             
             # Assert
             for bus in buses:
-                assert bus != None
+                assert bus is not None
                 
                 assert "Due" in bus
-                assert bus["Due"] != None
+                assert bus["Due"] is not None
 
                 assert "ServiceNumber" in bus
-                assert bus["ServiceNumber"] != None
+                assert bus["ServiceNumber"] is not None
 
                 assert "Destination" in bus
-                bus["Destination"] != None
+                bus["Destination"] is not None
 
                 assert "IsFG" in bus
                 assert bus["IsFG"] == "Y" or bus["IsFG"] == "N"

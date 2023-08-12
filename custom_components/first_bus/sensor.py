@@ -83,12 +83,12 @@ class FirstBusNextBus(SensorEntity):
     
     next_bus = get_next_bus(self._buses, self._data[CONFIG_BUSES], now())
     self._attributes = next_bus
-    if (self._attributes == None):
+    if (self._attributes is None):
       self._attributes = {}
     
     self._attributes["stop"] = self._data[CONFIG_STOP]
 
-    if next_bus != None:
+    if next_bus is not None:
       self._state = next_bus["Due"]
     else:
       self._state = None

@@ -34,7 +34,7 @@ async def test_when_get_buses_is_called_and_set_time_in_past_is_returned_then_du
 
   # Act
   buses = await async_get_buses(client, stop, now)
-  assert buses != None
+  assert buses is not None
   assert len(buses) == 1
 
   bus = buses[0]
