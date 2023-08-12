@@ -27,9 +27,9 @@ class FirstBusConfigFlow(ConfigFlow, domain=DOMAIN):
 
     errors = {}
     if user_input is not None:
-      if CONFIG_BUSES in user_input and user_input[CONFIG_BUSES] != None:
+      if CONFIG_BUSES in user_input and user_input[CONFIG_BUSES] is not None:
         matches = re.search(REGEX_BUSES, user_input[CONFIG_BUSES])
-        if (matches == None):
+        if (matches is None):
           errors[CONFIG_BUSES] = "invalid_buses"
         else:
           user_input[CONFIG_BUSES] = user_input[CONFIG_BUSES].split(",")
@@ -85,9 +85,9 @@ class OptionsFlowHandler(OptionsFlow):
 
     _LOGGER.debug(f"Update config {config}")
 
-    if CONFIG_BUSES in config and config[CONFIG_BUSES] != None and len(config[CONFIG_BUSES]) > 0:
+    if CONFIG_BUSES in config and config[CONFIG_BUSES] is not None and len(config[CONFIG_BUSES]) > 0:
       matches = re.search(REGEX_BUSES, config[CONFIG_BUSES])
-      if (matches == None):
+      if (matches is None):
         errors[CONFIG_BUSES] = "invalid_buses"
       else:
         config[CONFIG_BUSES] = config[CONFIG_BUSES].split(",")

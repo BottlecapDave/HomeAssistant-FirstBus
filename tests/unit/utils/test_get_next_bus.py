@@ -42,17 +42,17 @@ async def test_when_get_next_bus_is_called_then_due_timestamp_is_correct(target_
   ]
   
   expected_next_bus = None
-  if expected_bus_index != None:
+  if expected_bus_index is not None:
     expected_next_bus = buses[expected_bus_index]
 
   # Act
   next_bus = get_next_bus(buses, target_buses, now)
 
   # Assert
-  if (expected_next_bus == None):
-    assert next_bus == None
+  if (expected_next_bus is None):
+    assert next_bus is None
   else:
-    assert next_bus != None
+    assert next_bus is not None
 
     assert "Due" in next_bus
     assert next_bus["Due"] == expected_next_bus["Due"]
@@ -95,10 +95,10 @@ async def test_when_get_next_bus_is_called_and_buses_in_the_past_then_correct_ne
   next_bus = get_next_bus(buses, [], now)
 
   # Assert
-  if (expected_next_bus == None):
-    assert next_bus == None
+  if (expected_next_bus is None):
+    assert next_bus is None
   else:
-    assert next_bus != None
+    assert next_bus is not None
 
     assert "Due" in next_bus
     assert next_bus["Due"] == expected_next_bus["Due"]
