@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/BottlecapDave/HomeAssistant-FirstBus/compare/v1.1.2...v1.1.3) (2023-08-12)
+
+
+### Bug Fixes
+
+* Fixed sensor not reporting -1 when the bus is due ([e0ebd06](https://github.com/BottlecapDave/HomeAssistant-FirstBus/commit/e0ebd065ba3fc5ece573823baf2271a51f54aac1))
+
 ## [1.1.2](https://github.com/BottlecapDave/HomeAssistant-FirstBus/compare/v1.1.1...v1.1.2) (2022-09-05)
 
 
