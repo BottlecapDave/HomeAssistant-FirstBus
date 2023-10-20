@@ -14,7 +14,7 @@ async def test_when_get_buses_is_called_then_next_bus_is_returned():
     for stop in stops:
         try:
             # Act
-            buses = await client.async_get_buses(stop)
+            buses = await client.async_get_bus_times(stop)
             assert buses is not None
             assert len(buses) > 0
             

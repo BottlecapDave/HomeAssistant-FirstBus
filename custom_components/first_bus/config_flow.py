@@ -1,3 +1,4 @@
+from custom_components.first_bus.config import validate_config
 import voluptuous as vol
 import re
 import logging
@@ -25,22 +26,14 @@ class FirstBusConfigFlow(ConfigFlow, domain=DOMAIN):
   async def async_step_user(self, user_input):
     """Setup based on user config"""
 
-    errors = {}
     if user_input is not None:
-      if CONFIG_BUSES in user_input and user_input[CONFIG_BUSES] is not None:
-        matches = re.search(REGEX_BUSES, user_input[CONFIG_BUSES])
-        if (matches is None):
-          errors[CONFIG_BUSES] = "invalid_buses"
-        else:
-          user_input[CONFIG_BUSES] = user_input[CONFIG_BUSES].split(",")
-      else:
-        user_input[CONFIG_BUSES] = []
+      (errors, config) = validate_config(user_input)
 
       # Setup our basic sensors
       if len(errors) < 1:
         return self.async_create_entry(
-          title=f"Bus Stop {user_input[CONFIG_NAME]}", 
-          data=user_input
+          title=f"Bus Stop {config[CONFIG_NAME]}", 
+          data=config
         )
 
     return self.async_show_form(
@@ -85,14 +78,7 @@ class OptionsFlowHandler(OptionsFlow):
 
     _LOGGER.debug(f"Update config {config}")
 
-    if CONFIG_BUSES in config and config[CONFIG_BUSES] is not None and len(config[CONFIG_BUSES]) > 0:
-      matches = re.search(REGEX_BUSES, config[CONFIG_BUSES])
-      if (matches is None):
-        errors[CONFIG_BUSES] = "invalid_buses"
-      else:
-        config[CONFIG_BUSES] = config[CONFIG_BUSES].split(",")
-    else:
-      config[CONFIG_BUSES] = []
+    (errors, config) = validate_config(config)
 
     if len(errors) < 1:
       return self.async_create_entry(title="", data=config)
