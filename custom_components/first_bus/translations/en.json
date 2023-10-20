@@ -6,14 +6,17 @@
         "title": "First Bus Stop",
         "description": "Setup your bus stop information.",
         "data": {
-          "Name": "The friendly name for the stop",
+          "Name": "Name",
           "Stop": "Stop ATCO code",
+          "Buses": "Buses"
+        },
+        "data_description": {
           "Buses": "The buses you want to filter to. If you want all buses, leave blank."
         }
       }
     },
     "error": {
-      "invalid_buses": "Buses must be alphanumeric separated by commas"
+      "invalid_buses": "Buses must be alphanumeric and spaces separated by commas"
     },
     "abort": {
     }
@@ -24,13 +27,15 @@
         "title": "First Bus Stop",
         "description": "Update your bus stop information.",
         "data": {
-          "Name": "The friendly name for the stop",
+          "Buses": "Buses"
+        },
+        "data_description": {
           "Buses": "The buses you want to filter to. If you want all buses, leave blank."
         }
       }
     },
     "error": {
-      "invalid_buses": "Buses must be alphanumeric separated by commas"
+      "invalid_buses": "Buses must be alphanumeric and spaces separated by commas"
     },
     "abort": {
     }

@@ -1,6 +1,4 @@
-from custom_components.first_bus.config import validate_config
 import voluptuous as vol
-import re
 import logging
 
 from homeassistant.config_entries import (ConfigFlow, OptionsFlow)
@@ -13,8 +11,9 @@ from .const import (
   CONFIG_BUSES,
 
   DATA_SCHEMA_STOP,
-  REGEX_BUSES,
 )
+
+from .config import merge_config, validate_config
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -26,6 +25,7 @@ class FirstBusConfigFlow(ConfigFlow, domain=DOMAIN):
   async def async_step_user(self, user_input):
     """Setup based on user config"""
 
+    errors = {}
     if user_input is not None:
       (errors, config) = validate_config(user_input)
 
@@ -54,27 +54,26 @@ class OptionsFlowHandler(OptionsFlow):
   async def async_step_init(self, user_input):
     """Manage the options for the custom component."""
 
-    config = dict(self._entry.data)
-    if self._entry.options is not None:
-      config.update(self._entry.options)
+    config = merge_config(self._entry.data, self._entry.options)
 
     return self.async_show_form(
       step_id="user", 
-      data_schema=vol.Schema({
-        vol.Optional(CONFIG_BUSES, default=','.join(config[CONFIG_BUSES])): str,
-      })
+      data_schema=self.add_suggested_values_to_schema(
+        vol.Schema({
+          vol.Optional(CONFIG_BUSES): str,
+        }),
+        {
+          CONFIG_BUSES: ','.join(config[CONFIG_BUSES])
+        }
+      )
     )
 
   async def async_step_user(self, user_input):
     """Manage the options for the custom component."""
 
     errors = {}
-    config = dict(self._entry.data)
-    if self._entry.options is not None:
-      config.update(self._entry.options)
-
-    if user_input is not None:
-      config.update(user_input)
+    
+    config = merge_config(self._entry.data, self._entry.options, user_input if user_input is not None else {})
 
     _LOGGER.debug(f"Update config {config}")
 
@@ -85,8 +84,13 @@ class OptionsFlowHandler(OptionsFlow):
 
     return self.async_show_form(
       step_id="user", 
-      data_schema=vol.Schema({
-        vol.Optional(CONFIG_BUSES, default=','.join(config[CONFIG_BUSES])): str,
-      }),
+      data_schema=self.add_suggested_values_to_schema(
+        vol.Schema({
+          vol.Optional(CONFIG_BUSES): str,
+        }),
+        {
+          CONFIG_BUSES: ','.join(config[CONFIG_BUSES])
+        }
+      ),
       errors=errors
     )
