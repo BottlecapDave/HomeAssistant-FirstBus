@@ -14,7 +14,7 @@ from .const import (
 from .api_client import (FirstBusApiClient)
 from .utils import (
   get_next_bus,
-  async_get_buses,
+  get_buses,
   calculate_minutes_remaining
 )
 
@@ -77,7 +77,8 @@ class FirstBusNextBus(SensorEntity):
 
     # We only want to update every 5 minutes so we don't hammer the service
     if self._minsSinceLastUpdate <= 0:
-      buses = await async_get_buses(self._client, self._data[CONFIG_STOP], now())
+      bus_times = await self._client.async_get_bus_times(self._data[CONFIG_STOP])
+      buses = get_buses(bus_times, now())
       self._buses = buses
       self._minsSinceLastUpdate = 5
     

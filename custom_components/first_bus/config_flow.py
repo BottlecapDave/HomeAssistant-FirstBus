@@ -1,5 +1,4 @@
 import voluptuous as vol
-import re
 import logging
 
 from homeassistant.config_entries import (ConfigFlow, OptionsFlow)
@@ -12,8 +11,9 @@ from .const import (
   CONFIG_BUSES,
 
   DATA_SCHEMA_STOP,
-  REGEX_BUSES,
 )
+
+from .config import merge_config, validate_config
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -27,20 +27,13 @@ class FirstBusConfigFlow(ConfigFlow, domain=DOMAIN):
 
     errors = {}
     if user_input is not None:
-      if CONFIG_BUSES in user_input and user_input[CONFIG_BUSES] is not None:
-        matches = re.search(REGEX_BUSES, user_input[CONFIG_BUSES])
-        if (matches is None):
-          errors[CONFIG_BUSES] = "invalid_buses"
-        else:
-          user_input[CONFIG_BUSES] = user_input[CONFIG_BUSES].split(",")
-      else:
-        user_input[CONFIG_BUSES] = []
+      (errors, config) = validate_config(user_input)
 
       # Setup our basic sensors
       if len(errors) < 1:
         return self.async_create_entry(
-          title=f"Bus Stop {user_input[CONFIG_NAME]}", 
-          data=user_input
+          title=f"Bus Stop {config[CONFIG_NAME]}", 
+          data=config
         )
 
     return self.async_show_form(
@@ -61,46 +54,43 @@ class OptionsFlowHandler(OptionsFlow):
   async def async_step_init(self, user_input):
     """Manage the options for the custom component."""
 
-    config = dict(self._entry.data)
-    if self._entry.options is not None:
-      config.update(self._entry.options)
+    config = merge_config(self._entry.data, self._entry.options)
 
     return self.async_show_form(
       step_id="user", 
-      data_schema=vol.Schema({
-        vol.Optional(CONFIG_BUSES, default=','.join(config[CONFIG_BUSES])): str,
-      })
+      data_schema=self.add_suggested_values_to_schema(
+        vol.Schema({
+          vol.Optional(CONFIG_BUSES): str,
+        }),
+        {
+          CONFIG_BUSES: ','.join(config[CONFIG_BUSES])
+        }
+      )
     )
 
   async def async_step_user(self, user_input):
     """Manage the options for the custom component."""
 
     errors = {}
-    config = dict(self._entry.data)
-    if self._entry.options is not None:
-      config.update(self._entry.options)
-
-    if user_input is not None:
-      config.update(user_input)
+    
+    config = merge_config(self._entry.data, self._entry.options, user_input if user_input is not None else {})
 
     _LOGGER.debug(f"Update config {config}")
 
-    if CONFIG_BUSES in config and config[CONFIG_BUSES] is not None and len(config[CONFIG_BUSES]) > 0:
-      matches = re.search(REGEX_BUSES, config[CONFIG_BUSES])
-      if (matches is None):
-        errors[CONFIG_BUSES] = "invalid_buses"
-      else:
-        config[CONFIG_BUSES] = config[CONFIG_BUSES].split(",")
-    else:
-      config[CONFIG_BUSES] = []
+    (errors, config) = validate_config(config)
 
     if len(errors) < 1:
       return self.async_create_entry(title="", data=config)
 
     return self.async_show_form(
       step_id="user", 
-      data_schema=vol.Schema({
-        vol.Optional(CONFIG_BUSES, default=','.join(config[CONFIG_BUSES])): str,
-      }),
+      data_schema=self.add_suggested_values_to_schema(
+        vol.Schema({
+          vol.Optional(CONFIG_BUSES): str,
+        }),
+        {
+          CONFIG_BUSES: ','.join(config[CONFIG_BUSES])
+        }
+      ),
       errors=errors
     )

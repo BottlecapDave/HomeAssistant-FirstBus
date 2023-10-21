@@ -1,19 +1,16 @@
 import logging
 import re
+from datetime import (datetime, timedelta)
+from homeassistant.util.dt import (parse_datetime)
 
 from .const import (
   REGEX_TIME,
   REGEX_TIME_MINS,
 )
 
-from datetime import (timedelta)
-from homeassistant.util.dt import (parse_datetime)
-from .api_client import FirstBusApiClient
-
 _LOGGER = logging.getLogger(__name__)
 
-async def async_get_buses(api_client: FirstBusApiClient, stop, current_timestamp):
-  bus_times = await api_client.async_get_buses(stop)
+def get_buses(bus_times: list, current_timestamp: datetime):
   _LOGGER.debug(f'buses: {bus_times}')
   
   for bus_time in bus_times:

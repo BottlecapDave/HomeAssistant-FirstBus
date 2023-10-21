@@ -5,8 +5,8 @@ class FirstBusApiClient:
   def __init__(self):
     self._base_url = 'https://www.firstbus.co.uk'
 
-  async def async_get_buses(self, stop):
-    """Get the user's account"""
+  async def async_get_bus_times(self, stop):
+    """Get the bus times for a given stop"""
     async with aiohttp.ClientSession() as client:
       url = f'{self._base_url}/getNextBus?stop={stop}'
       async with client.get(url) as response:

@@ -5,7 +5,7 @@ import pytest
 from homeassistant.util.dt import (now)
 
 from custom_components.first_bus.api_client import FirstBusApiClient
-from custom_components.first_bus.utils import (async_get_buses, get_next_bus)
+from custom_components.first_bus.utils import (get_buses, get_next_bus)
 
 stops = ["0170SGB20116", "3800C509801", "2200YEA00934"]
 
@@ -24,7 +24,8 @@ async def test_when_get_next_bus_is_called_then_next_bus_is_returned(target_buse
     for stop in stops:
         try:
             # Act
-            buses = await async_get_buses(client, stop, now())
+            bus_times = await client.async_get_bus_times(stop)
+            buses = get_buses(bus_times, now())
             assert buses is not None
             assert len(buses) > 0
             

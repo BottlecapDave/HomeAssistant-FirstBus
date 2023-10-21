@@ -6,14 +6,18 @@
         "title": "First Bus Stop",
         "description": "Setup your bus stop information.",
         "data": {
-          "Name": "The friendly name for the stop",
+          "Name": "Name",
           "Stop": "Stop ATCO code",
-          "Buses": "The buses you want to filter to. If you want all buses, leave blank."
+          "Buses": "Buses"
+        },
+        "data_description": {
+          "Stop": "Instructions to find your ATCO code can be found at https://github.com/BottlecapDave/HomeAssistant-FirstBus#atco-code",
+          "Buses": "You can filter to specific buses, comma separated, or leave blank to see all buses"
         }
       }
     },
     "error": {
-      "invalid_buses": "Buses must be alphanumeric separated by commas"
+      "invalid_buses": "Buses must be alphanumeric and spaces separated by commas"
     },
     "abort": {
     }
@@ -24,13 +28,15 @@
         "title": "First Bus Stop",
         "description": "Update your bus stop information.",
         "data": {
-          "Name": "The friendly name for the stop",
-          "Buses": "The buses you want to filter to. If you want all buses, leave blank."
+          "Buses": "Buses"
+        },
+        "data_description": {
+          "Buses": "You can filter to specific buses, comma separated, or leave blank to see all buses"
         }
       }
     },
     "error": {
-      "invalid_buses": "Buses must be alphanumeric separated by commas"
+      "invalid_buses": "Buses must be alphanumeric and spaces separated by commas"
     },
     "abort": {
     }
