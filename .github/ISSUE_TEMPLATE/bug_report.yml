@@ -1,0 +1,71 @@
+name: Bug/Issue Report
+description: Create a bug/issue detailing something that is broken or not working correctly
+labels: ["bug"]
+assignees:
+  - BottlecapDave
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report, and first may I say I'm sorry that you've encountered an issue.
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      description: Please provide a clear and concise description of what the bug/issue is
+      placeholder: ex. my bus is not being picked up
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: Please provide steps to reproduce the behavior
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+      description: Please provide a clear and concise description of what you expected to happen
+    validations:
+      required: true
+  - type: input
+    id: atco
+    attributes:
+      label: ATCO Code
+      description: The ATCO code for the bus stop. This might help identify issues that are related to specific stops/routes
+    validations:
+      required: true
+  - type: input
+    id: integration-version
+    attributes:
+      label: Integration Version
+      description: The version of the integration that you encountered the bug on
+    validations:
+      required: true
+  - type: input
+    id: ha-integration
+    attributes:
+      label: Home Assistant Version
+      description: The version of Home Assistant you're currently running
+    validations:
+      required: true
+  - type: dropdown
+    id: freshinstall
+    attributes:
+      label: Fresh Install?
+      description: What this encountered after upgrading or a fresh install
+      options:
+        - Not specified
+        - Fresh install
+        - After upgrading
+    validations:
+      required: true
+  - type: textarea
+    id: ha-logs
+    attributes:
+      label: Home Assistant Logs
+      description: Paste any related Home Assistant logs here. Please follow the instructions as outlined in the [readme](https://github.com/BottlecapDave/HomeAssistant-FirstBus/blob/develop/_docs/faq.md#how-do-i-increase-the-logs-for-the-integration)
+    validations:
+      required: true
