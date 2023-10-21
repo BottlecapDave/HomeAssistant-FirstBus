@@ -1,3 +1,11 @@
+## [1.1.4](https://github.com/BottlecapDave/HomeAssistant-FirstBus/compare/v1.1.3...v1.1.4) (2023-10-21)
+
+
+### Bug Fixes
+
+* Fixed unsetting buses for existing entries ([0703fca](https://github.com/BottlecapDave/HomeAssistant-FirstBus/commit/0703fca5ea7c17d447697bb962b8f01336d9c864))
+* Updated bus filters to support buses with with spaces ([c8fe0a2](https://github.com/BottlecapDave/HomeAssistant-FirstBus/commit/c8fe0a2a825281914465c5ed550981f49d253759))
+
 ## [1.1.3](https://github.com/BottlecapDave/HomeAssistant-FirstBus/compare/v1.1.2...v1.1.3) (2023-08-12)
 
 
