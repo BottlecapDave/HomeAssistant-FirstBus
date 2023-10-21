@@ -10,6 +10,8 @@
     - [ATCO code](#atco-code)
     - [Buses](#buses)
   - [Sensors](#sensors)
+  - [FAQ](#faq)
+  - [Sponsorship](#sponsorship)
 
 Custom component built to bring you bus times for First Buses. This was built because buses in my area stopped having live times available in [UK Transport integration](https://www.home-assistant.io/integrations/uk_transport/), and time tabled based times were only available using the more expensive `nextbuses` call.
 
@@ -59,7 +61,7 @@ However, there have been reports of missing ATCO codes. Therefore alternatively,
 
 ## Sensors
 
-You can setup the integration as many times as you like, with each time tracking a different stop and potential buses from that stop. 
+You can setup the integration as many times as you like, with each sensor tracking a different stop and potential buses from that stop. 
 
 Each instance will create a single sensor in the form `sensor.first_bus_<<NAME_OF_SENSOR>>_next_bus`. This will provide the number of minutes until one of the specified buses (or any if no specific buses were specified) reach the bus stop. If there is no known next bus, then `none`/`unknown` will be returned.
 
@@ -75,3 +77,11 @@ The following attributes are available in addition
 | `IsFG` | Determines if the bus is a First bus (`Y`) or not (`N`) |
 | `IsLive` | Determines if the bus is being tracked (`Y`) or is from the timetable (`N`) |
 | `stop` | The ATCO code of the bus stop that is being tracked |
+
+## FAQ
+
+Before raising anything, please read through the [faq](./_docs/faq.md). If you have found a bug or have a feature request please [raise it](https://github.com/BottlecapDave/HomeAssistant-FirstBus/issues) using the appropriate report template.
+
+## Sponsorship
+
+If you are enjoying the integration, why not if possible, make a one off or monthly [GitHub sponsorship](https://github.com/sponsors/bottlecapdave).
