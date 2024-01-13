@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/BottlecapDave/HomeAssistant-FirstBus/compare/v1.1.4...v1.2.0) (2024-01-13)
+
+
+### Features
+
+* Added buses attribute to sensor (Thanks [@garthy](https://github.com/garthy)) ([39994d1](https://github.com/BottlecapDave/HomeAssistant-FirstBus/commit/39994d1fbbdbfb04b798b60a0f98a0768e23160a))
+
 ## [1.1.4](https://github.com/BottlecapDave/HomeAssistant-FirstBus/compare/v1.1.3...v1.1.4) (2023-10-21)
 
 
