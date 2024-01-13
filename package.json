@@ -8,7 +8,8 @@
     "commit": "cz",
     "release": "semantic-release",
     "test-unit": "python -m pytest tests/unit",
-    "test-integration": "python -m pytest tests/integration"
+    "test-integration": "python -m pytest tests/integration",
+    "docs-serve": "python -m mkdocs serve"
   },
   "repository": {
     "type": "git",
@@ -28,13 +29,9 @@
     "conventional-changelog-eslint": "^3.0.9",
     "cz-customizable": "^6.3.0",
     "husky": "^4.3.8",
-<<<<<<< HEAD
-    "semantic-release": "^18.0.0",
+    "semantic-release": "^22.0.5",
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
-=======
-    "semantic-release": "^22.0.5"
->>>>>>> 0041e031fe96911f7bb313ae71fbc6de65d88974
   },
   "config": {
     "commitizen": {

@@ -1,0 +1,44 @@
+site_name: Home Assistant First Bus
+repo_url: https://github.com/bottlecapdave/homeassistant-firstbus
+docs_dir: _docs
+
+nav:
+  - Home: index.md
+  - setup.md
+  - entities.md
+  - faq.md
+  - sponsorship.md
+
+# extra:
+#   version:
+#     provider: mike
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - attr_list
+  - toc:
+      permalink: "#"
+
+theme:
+  name: material
+  features:
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - toc.follow
+  palette:
+    # Palette toggle for light mode
+    - scheme: default
+      primary: light blue
+      toggle:
+        icon: material/brightness-7 
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - scheme: slate
+      primary: light blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode

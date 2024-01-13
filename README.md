@@ -7,9 +7,7 @@
     - [HACS](#hacs)
     - [Manual](#manual)
   - [How to setup](#how-to-setup)
-    - [ATCO code](#atco-code)
-    - [Buses](#buses)
-  - [Sensors](#sensors)
+  - [Docs](#docs)
   - [FAQ](#faq)
   - [Sponsorship](#sponsorship)
 
@@ -38,49 +36,15 @@ To install, place the contents of `custom_components` into the `<config director
 
 ## How to setup
 
-Setup is done entirely via the [UI](https://my.home-assistant.io/redirect/config_flow_start/?domain=first_bus).
+Please follow the [setup guide](https://bottlecapdave.github.io/HomeAssistant-FirstBus/setup/account) to setup the integration. This guide details the configuration, along with the sensors that will be available to you.
 
-### ATCO code
+## Docs
 
-The `ATCO code` for your stop can be found in the same way that [UK Transport](https://www.home-assistant.io/integrations/uk_transport/) outlines.
-    
-1. On [OpenStreetMap.org](https://www.openstreetmap.org/) zoom right in on a bus stop you’re interested in.
-2. Click the layers picker button on the right hand side.
-3. Tick the ‘map data’ layer, and wait for clickable objects to load.
-4. Click the bus stop node to reveal its tags on the left.
-
-However, there have been reports of missing ATCO codes. Therefore alternatively, you can follow the following instructions:
-
-1. Navigate to https://www.firstbus.co.uk/next-bus and type your location
-2. Open up the development tools on your browser (usually F12) and go to the network tab
-3. Click on the stop that you're after and look at the network request. This should make a request to https://www.firstbus.co.uk/api/get-next-bus?stop=XXX. The value you're after will be in the response and also the value of XXX.
-
-### Buses
-
-`Buses` are the buses you want to filter to. If you want all buses from this stop, leave this blank. If you want multiple buses, these must be separated by commas.
-
-## Sensors
-
-You can setup the integration as many times as you like, with each sensor tracking a different stop and potential buses from that stop. 
-
-Each instance will create a single sensor in the form `sensor.first_bus_<<NAME_OF_SENSOR>>_next_bus`. This will provide the number of minutes until one of the specified buses (or any if no specific buses were specified) reach the bus stop. If there is no known next bus, then `none`/`unknown` will be returned.
-
-The sensor will pull the latest times for the stop every **5 minutes**. This is done so that the unofficial API isn't hammered and support is taken away, and I felt 5 minutes was long enough so that information wasn't too stale. This means that there is a chance that the time won't reflect the times on the app/website if they are updated within this 5 minute timeframe.
-
-The following attributes are available in addition
-
-| Attribute | Notes |
-|-----------|-------|
-| `ServiceNumber` | The name/number of the next bus |
-| `Destination` | The destination of the next bus |
-| `Due` | The timestamp of when the next bus is due, in ISO format |
-| `IsFG` | Determines if the bus is a First bus (`Y`) or not (`N`) |
-| `IsLive` | Determines if the bus is being tracked (`Y`) or is from the timetable (`N`) |
-| `stop` | The ATCO code of the bus stop that is being tracked |
+To get full use of the integration, please visit the [docs](https://bottlecapdave.github.io/HomeAssistant-FirstBus/).
 
 ## FAQ
 
-Before raising anything, please read through the [faq](./_docs/faq.md). If you have found a bug or have a feature request please [raise it](https://github.com/BottlecapDave/HomeAssistant-FirstBus/issues) using the appropriate report template.
+Before raising anything, please read through the [faq](https://bottlecapdave.github.io/HomeAssistant-FirstBus/faq). If you have questions, then you can raise a [discussion](https://github.com/BottlecapDave/HomeAssistant-FirstBus/discussions). If you have found a bug or have a feature request please [raise it](https://github.com/BottlecapDave/HomeAssistant-FirstBus/issues) using the appropriate report template.
 
 ## Sponsorship
 
