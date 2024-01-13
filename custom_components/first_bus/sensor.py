@@ -1,3 +1,4 @@
+import copy
 from datetime import (timedelta)
 import logging
 
@@ -83,12 +84,13 @@ class FirstBusNextBus(SensorEntity):
       self._minsSinceLastUpdate = 5
     
     next_bus = get_next_bus(self._buses, self._data[CONFIG_BUSES], now())
-    self._attributes = next_bus
+    self._attributes = copy.copy(next_bus)
     if (self._attributes is None):
       self._attributes = {}
     
     self._attributes["stop"] = self._data[CONFIG_STOP]
-
+    self._attributes["buses"] = self._buses
+    
     if next_bus is not None:
       self._state = next_bus["Due"]
     else:
