@@ -36,7 +36,7 @@ To install, place the contents of `custom_components` into the `<config director
 
 ## How to setup
 
-Please follow the [setup guide](https://bottlecapdave.github.io/HomeAssistant-FirstBus/setup/account) to setup the integration. This guide details the configuration, along with the sensors that will be available to you.
+Please follow the [setup guide](https://bottlecapdave.github.io/HomeAssistant-FirstBus/setup) to setup the integration. This guide details the configuration, along with the sensors that will be available to you.
 
 ## Docs
 
