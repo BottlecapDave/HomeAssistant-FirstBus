@@ -6,6 +6,10 @@ from homeassistant.util.dt import (now)
 from homeassistant.components.sensor import (
     SensorEntity,
 )
+from homeassistant.helpers import (
+    entity_platform,
+    service,
+)
 from .const import (
   CONFIG_NAME,
   CONFIG_STOP,
@@ -30,6 +34,10 @@ async def async_setup_entry(hass, entry, async_add_entities):
 
   async_add_entities(entities, True)
 
+  platform = entity_platform.async_get_current_platform()
+
+  platform.async_register_entity_service('live_refresh', None, 'live_refresh')
+
 class FirstBusNextBus(SensorEntity):
   """Sensor for the next bus."""
 
@@ -42,6 +50,7 @@ class FirstBusNextBus(SensorEntity):
     self._attributes = {}
     self._state = None
     self._minsSinceLastUpdate = 0
+    self._lastLiveRefresh = None
 
   @property
   def unique_id(self):
@@ -82,6 +91,7 @@ class FirstBusNextBus(SensorEntity):
       buses = get_buses(bus_times, now())
       self._buses = buses
       self._minsSinceLastUpdate = 5
+      self._lastLiveRefresh = now()
     
     next_bus = get_next_bus(self._buses, self._data[CONFIG_BUSES], now())
     self._attributes = copy.copy(next_bus)
@@ -90,8 +100,13 @@ class FirstBusNextBus(SensorEntity):
     
     self._attributes["stop"] = self._data[CONFIG_STOP]
     self._attributes["buses"] = self._buses
+    self._attributes["last_live_refresh"] = self._lastLiveRefresh
     
     if next_bus is not None:
       self._state = next_bus["Due"]
     else:
       self._state = None
+
+  async def live_refresh(self):
+    self._minsSinceLastUpdate = 0
+    await self.async_update()

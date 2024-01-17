@@ -1,0 +1,4 @@
+live_refresh:
+  target:
+    entity:
+      domain: sensor
