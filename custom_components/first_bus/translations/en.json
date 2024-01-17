@@ -40,5 +40,11 @@
     },
     "abort": {
     }
+  },
+  "services": {
+    "live_refresh": {
+      "name": "Live refresh",
+      "description": "Refresh timetable from First Bus website."
+    }
   }
 }
