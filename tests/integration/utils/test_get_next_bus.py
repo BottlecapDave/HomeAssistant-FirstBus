@@ -33,20 +33,17 @@ async def test_when_get_next_bus_is_called_then_next_bus_is_returned(target_buse
 
             # Assert
             assert next_bus is not None
-            assert "Due" in next_bus
-            assert next_bus["Due"].replace(tzinfo=pytz.UTC) >= datetime.utcnow().replace(tzinfo=pytz.UTC)
+            assert "due" in next_bus
+            assert next_bus["due"].replace(tzinfo=pytz.UTC) >= datetime.utcnow().replace(tzinfo=pytz.UTC)
 
-            assert "ServiceNumber" in next_bus
+            assert "service_number" in next_bus
             if target_buses is not None and len(target_buses) > 0:
-                assert next_bus["ServiceNumber"] in target_buses
+                assert next_bus["service_number"] in target_buses
 
-            assert "Destination" in next_bus
+            assert "destination" in next_bus
 
-            assert "IsFG" in next_bus
-            assert next_bus["IsFG"] == "Y" or next_bus["IsFG"] == "N"
-
-            assert "IsLive" in next_bus
-            assert next_bus["IsLive"] == "Y" or next_bus["IsFG"] == "N"
+            assert "is_live" in next_bus
+            assert next_bus["is_live"] == True or next_bus["is_live"] == False
 
             passes += 1
         except:

@@ -14,6 +14,12 @@ class FirstBusApiClient:
         data = await response.json(content_type=None)
 
         if ("times" in data):
-          return data["times"]
+          return list(map(lambda time: {
+            "due": time["Due"],
+            "service_ref": time["ServiceRef"],
+            "service_number": time["ServiceNumber"],
+            "destination": time["Destination"],
+            "is_live": True if time["IsLive"] == 'Y' or time["IsLive"] == 'y' else False
+          }, data["times"]))
         
         return []
