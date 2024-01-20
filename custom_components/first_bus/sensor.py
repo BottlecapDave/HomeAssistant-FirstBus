@@ -9,7 +9,8 @@ from homeassistant.components.sensor import (
 from .const import (
   CONFIG_NAME,
   CONFIG_STOP,
-  CONFIG_BUSES
+  CONFIG_BUSES,
+  MINUTES_BETWEEN_UPDATES
 )
 
 from .api_client import (FirstBusApiClient)
@@ -81,7 +82,8 @@ class FirstBusNextBus(SensorEntity):
       bus_times = await self._client.async_get_bus_times(self._data[CONFIG_STOP])
       buses = get_buses(bus_times, now())
       self._buses = buses
-      self._minsSinceLastUpdate = 5
+      self._minsSinceLastUpdate = MINUTES_BETWEEN_UPDATES
+      self._attributes["data_last_updated"] = now()
     
     next_bus = get_next_bus(self._buses, self._data[CONFIG_BUSES], now())
     self._attributes = copy.copy(next_bus)
