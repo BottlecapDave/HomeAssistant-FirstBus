@@ -1,17 +1,22 @@
 name: Main
 on:
   schedule:
-    - cron:  '0 6 * * *'
+    - cron:  '0 1 * * *'
   push:
-    paths-ignore:
-      - '**.md'
     branches:
       - develop
       - main
+    paths-ignore:
+      - 'mkdocs.yml'
+      - '_docs/**'
   pull_request:
-  workflow_dispatch:
+    paths-ignore:
+      - 'mkdocs.yml'
+      - '_docs/**'
 jobs:
   validate:
+    if: ${{ github.event_name != 'schedule' || github.repository_owner == 'BottlecapDave' }}
+    name: Validate
     runs-on: "ubuntu-latest"
     steps:
       - uses: "actions/checkout@v4"
@@ -20,8 +25,9 @@ jobs:
         uses: "hacs/action@main"
         with:
           category: "integration"
-  test:
-    name: Test
+  unit_tests:
+    if: ${{ github.event_name != 'schedule' || github.repository_owner == 'BottlecapDave' }}
+    name: Unit Tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -33,18 +39,33 @@ jobs:
       - name: Install Python modules
         run: |
           pip install -r requirements.test.txt
-      - name: Unit tests suite
+      - name: Run unit tests
         run: |
           python -m pytest tests/unit
-      - name: Integration tests suite
+  integration_tests:
+    if: ${{ github.event_name != 'schedule' || github.repository_owner == 'BottlecapDave' }}
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: asdf_install
+        uses: asdf-vm/actions/install@v3
+      - name: Install Python modules
+        run: |
+          pip install -r requirements.test.txt
+      - name: Run integration tests
         run: |
           python -m pytest tests/integration
   release:
     name: Release
-    if: github.ref == 'refs/heads/main'
-    needs:
+    if: ${{ github.repository_owner == 'BottlecapDave' && github.ref == 'refs/heads/main' }}
+    needs: 
     - validate
-    - test
+    - unit_tests
+    - integration_tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
