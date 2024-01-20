@@ -22,20 +22,17 @@ async def test_when_get_buses_is_called_then_next_bus_is_returned():
             for bus in buses:
                 assert bus is not None
                 
-                assert "Due" in bus
-                assert bus["Due"] is not None
+                assert "due" in bus
+                assert bus["due"] is not None
 
-                assert "ServiceNumber" in bus
-                assert bus["ServiceNumber"] is not None
+                assert "service_number" in bus
+                assert bus["service_number"] is not None
 
-                assert "Destination" in bus
-                bus["Destination"] is not None
+                assert "destination" in bus
+                bus["destination"] is not None
 
-                assert "IsFG" in bus
-                assert bus["IsFG"] == "Y" or bus["IsFG"] == "N"
-
-                assert "IsLive" in bus
-                assert bus["IsLive"] == "Y" or bus["IsFG"] == "N"
+                assert "is_live" in bus
+                assert bus["is_live"] == True or bus["is_live"] == False
 
             passes += 1
         except:

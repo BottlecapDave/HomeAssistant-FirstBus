@@ -12,11 +12,23 @@ The sensor will pull the latest times for the stop every **5 minutes**. This is 
 
 The following attributes are available in addition
 
-| Attribute | Notes |
-|-----------|-------|
-| `ServiceNumber` | The name/number of the next bus |
-| `Destination` | The destination of the next bus |
-| `Due` | The timestamp of when the next bus is due, in ISO format |
-| `IsFG` | Determines if the bus is a First bus (`Y`) or not (`N`) |
-| `IsLive` | Determines if the bus is being tracked (`Y`) or is from the timetable (`N`) |
-| `stop` | The ATCO code of the bus stop that is being tracked |
+| Attribute | Type | Notes |
+|-----------|------|-------|
+| `service_ref` | `string` | The internal reference for the service |
+| `service_number` | `string` | The name/number of the next bus |
+| `destination` | `string` | The destination of the next bus |
+| `due` | `datetime` | The timestamp of when the next bus is due |
+| `is_live` | `boolean` | Determines if the bus is being tracked (`true`) or is from the timetable (`false`) |
+| `stop` | `string` | The ATCO code of the bus stop that is being tracked |
+| `buses` | `list` | The collection of known upcoming buses for the stop |
+| `data_last_updated` | `datetime` | The timestamp when the underlying data was last updated |
+
+For each bus in `buses`, you can find the following attributes
+
+| Attribute | Type | Notes |
+|-----------|------|-------|
+| `service_ref` | `string` | The internal reference for the service |
+| `service_number` | `string` | The name/number of the next bus |
+| `destination` | `string` | The destination of the next bus |
+| `due` | `datetime` | The timestamp of when the next bus is due |
+| `is_live` | `boolean` | Determines if the bus is being tracked (`true`) or is from the timetable (`false`) |

@@ -17,28 +17,25 @@ async def test_when_get_next_bus_is_called_then_due_timestamp_is_correct(target_
   # Arrange
   buses = [
     {
-      'ServiceRef': '0', 
-      'ServiceNumber': '49', 
-      'Destination': 'Newton Road Shops', 
-      'Due': now + timedelta(days=1, minutes=64), 
-      'IsFG': 'N', 
-      'IsLive': 'Y'
+      'service_ref': '0', 
+      'service_number': '49', 
+      'destination': 'Newton Road Shops', 
+      'due': now + timedelta(days=1, minutes=64), 
+      'is_live': True
     },
     {
-      'ServiceRef': '0', 
-      'ServiceNumber': '43', 
-      'Destination': 'Newton Road Shops', 
-      'Due': now + timedelta(minutes=35), 
-      'IsFG': 'N', 
-      'IsLive': 'Y'
+      'service_ref': '0', 
+      'service_number': '43', 
+      'destination': 'Newton Road Shops', 
+      'due': now + timedelta(minutes=35), 
+      'is_live': True
     },
     {
-      'ServiceRef': '0', 
-      'ServiceNumber': '42', 
-      'Destination': 'Newton Road Shops', 
-      'Due': now + timedelta(minutes=64), 
-      'IsFG': 'N', 
-      'IsLive': 'Y'
+      'service_ref': '0', 
+      'service_number': '42', 
+      'destination': 'Newton Road Shops', 
+      'due': now + timedelta(minutes=64), 
+      'is_live': True
     }
   ]
   
@@ -55,39 +52,34 @@ async def test_when_get_next_bus_is_called_then_due_timestamp_is_correct(target_
   else:
     assert next_bus is not None
 
-    assert "Due" in next_bus
-    assert next_bus["Due"] == expected_next_bus["Due"]
+    assert "due" in next_bus
+    assert next_bus["due"] == expected_next_bus["due"]
 
-    assert "ServiceNumber" in next_bus
-    assert next_bus["ServiceNumber"] == expected_next_bus["ServiceNumber"]
+    assert "service_number" in next_bus
+    assert next_bus["service_number"] == expected_next_bus["service_number"]
 
-    assert "Destination" in next_bus
-    assert next_bus["Destination"] == expected_next_bus["Destination"]
+    assert "destination" in next_bus
+    assert next_bus["destination"] == expected_next_bus["destination"]
 
-    assert "IsFG" in next_bus
-    assert next_bus["IsFG"] == expected_next_bus["IsFG"]
-
-    assert "IsLive" in next_bus
-    assert next_bus["IsLive"] == expected_next_bus["IsLive"]
+    assert "is_live" in next_bus
+    assert next_bus["is_live"] == expected_next_bus["is_live"]
 
 @pytest.mark.asyncio
 async def test_when_get_next_bus_is_called_and_buses_in_the_past_then_correct_next_bus_is_picked():
   # Arrange
   buses = [{
-    'ServiceRef': '0', 
-    'ServiceNumber': '43', 
-    'Destination': 'Newton Road Shops', 
-    'Due': now - timedelta(minutes=35), 
-    'IsFG': 'N', 
-    'IsLive': 'Y'
+    'service_ref': '0', 
+    'service_number': '43', 
+    'destination': 'Newton Road Shops', 
+    'due': now - timedelta(minutes=35), 
+    'is_live': True
   },
   {
-    'ServiceRef': '0', 
-    'ServiceNumber': '42', 
-    'Destination': 'Newton Road Shops', 
-    'Due': now + timedelta(minutes=64), 
-    'IsFG': 'N', 
-    'IsLive': 'Y'
+    'service_ref': '0', 
+    'service_number': '42', 
+    'destination': 'Newton Road Shops', 
+    'due': now + timedelta(minutes=64), 
+    'is_live': True
   }]
   
   expected_next_bus = buses[1]
@@ -101,39 +93,34 @@ async def test_when_get_next_bus_is_called_and_buses_in_the_past_then_correct_ne
   else:
     assert next_bus is not None
 
-    assert "Due" in next_bus
-    assert next_bus["Due"] == expected_next_bus["Due"]
+    assert "due" in next_bus
+    assert next_bus["due"] == expected_next_bus["due"]
 
-    assert "ServiceNumber" in next_bus
-    assert next_bus["ServiceNumber"] == expected_next_bus["ServiceNumber"]
+    assert "service_number" in next_bus
+    assert next_bus["service_number"] == expected_next_bus["service_number"]
 
-    assert "Destination" in next_bus
-    assert next_bus["Destination"] == expected_next_bus["Destination"]
+    assert "destination" in next_bus
+    assert next_bus["destination"] == expected_next_bus["destination"]
 
-    assert "IsFG" in next_bus
-    assert next_bus["IsFG"] == expected_next_bus["IsFG"]
-
-    assert "IsLive" in next_bus
-    assert next_bus["IsLive"] == expected_next_bus["IsLive"]
+    assert "is_live" in next_bus
+    assert next_bus["is_live"] == expected_next_bus["is_live"]
 
 @pytest.mark.asyncio
 async def test_when_subset_of_buses_looked_for_then_correct_bus_is_picked():
   # Arrange
   buses = [{
-    'ServiceRef': '0', 
-    'ServiceNumber': '12 A', 
-    'Destination': 'Newton Road Shops', 
-    'Due': now - timedelta(minutes=35), 
-    'IsFG': 'N', 
-    'IsLive': 'Y'
+    'service_ref': '0', 
+    'service_number': '12 A', 
+    'destination': 'Newton Road Shops', 
+    'due': now - timedelta(minutes=35), 
+    'is_live': True
   },
   {
-    'ServiceRef': '0', 
-    'ServiceNumber': '12', 
-    'Destination': 'Newton Road Shops', 
-    'Due': now + timedelta(minutes=64), 
-    'IsFG': 'N', 
-    'IsLive': 'Y'
+    'service_ref': '0', 
+    'service_number': '12', 
+    'destination': 'Newton Road Shops', 
+    'due': now + timedelta(minutes=64), 
+    'is_live': True
   }]
   
   expected_next_bus = buses[1]
@@ -147,17 +134,14 @@ async def test_when_subset_of_buses_looked_for_then_correct_bus_is_picked():
   else:
     assert next_bus is not None
 
-    assert "Due" in next_bus
-    assert next_bus["Due"] == expected_next_bus["Due"]
+    assert "due" in next_bus
+    assert next_bus["due"] == expected_next_bus["due"]
 
-    assert "ServiceNumber" in next_bus
-    assert next_bus["ServiceNumber"] == expected_next_bus["ServiceNumber"]
+    assert "service_number" in next_bus
+    assert next_bus["service_number"] == expected_next_bus["service_number"]
 
-    assert "Destination" in next_bus
-    assert next_bus["Destination"] == expected_next_bus["Destination"]
+    assert "destination" in next_bus
+    assert next_bus["destination"] == expected_next_bus["destination"]
 
-    assert "IsFG" in next_bus
-    assert next_bus["IsFG"] == expected_next_bus["IsFG"]
-
-    assert "IsLive" in next_bus
-    assert next_bus["IsLive"] == expected_next_bus["IsLive"]
+    assert "is_live" in next_bus
+    assert next_bus["is_live"] == expected_next_bus["is_live"]

@@ -2,6 +2,8 @@ import voluptuous as vol
 
 DOMAIN = "first_bus"
 
+MINUTES_BETWEEN_UPDATES = 5
+
 CONFIG_NAME = "Name"
 CONFIG_STOP = "Stop"
 CONFIG_BUSES = "Buses"
