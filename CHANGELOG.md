@@ -1,3 +1,21 @@
+# [2.0.0](https://github.com/BottlecapDave/HomeAssistant-FirstBus/compare/v1.2.0...v2.0.0) (2024-01-20)
+
+
+### Bug Fixes
+
+* renamed attributes to have consistent naming style and updated Y/N based attributes to return bool ([6e1caba](https://github.com/BottlecapDave/HomeAssistant-FirstBus/commit/6e1caba23725d65021763dfd867f012b5965640f))
+
+
+### Features
+
+* Added data_last_updated attribute to sensor ([e47f2a3](https://github.com/BottlecapDave/HomeAssistant-FirstBus/commit/e47f2a399ca53a8cfc4dc6e14fcdf6ac08936eb8))
+
+
+### BREAKING CHANGES
+
+* Any reliances on attributes (e.g. automations) will need to be updated based on new naming structure
+and return types. IsFG attribute has been removed as value always seems to be false.
+
 # [1.2.0](https://github.com/BottlecapDave/HomeAssistant-FirstBus/compare/v1.1.4...v1.2.0) (2024-01-13)
 
 
