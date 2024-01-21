@@ -1,7 +1,7 @@
 name: Main
 on:
   schedule:
-    - cron:  '0 1 * * *'
+    - cron:  '0 6 * * *'
   push:
     branches:
       - develop
