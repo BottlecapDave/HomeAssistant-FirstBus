@@ -28,7 +28,7 @@
     "commitizen": "^4.3.0",
     "conventional-changelog-eslint": "^3.0.9",
     "cz-customizable": "^6.3.0",
-    "husky": "^4.3.8",
+    "husky": "^9.0.6",
     "semantic-release": "^22.0.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.2.2"
