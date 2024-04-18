@@ -11,7 +11,7 @@
           "Buses": "Buses"
         },
         "data_description": {
-          "Stop": "Instructions to find your ATCO code can be found at https://github.com/BottlecapDave/HomeAssistant-FirstBus#atco-code",
+          "Stop": "Instructions to find your ATCO code can be found at https://bottlecapdave.github.io/HomeAssistant-FirstBus/faq/#how-do-i-find-my-atco-code",
           "Buses": "You can filter to specific buses, comma separated, or leave blank to see all buses"
         }
       }
