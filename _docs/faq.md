@@ -11,9 +11,9 @@ The `ATCO code` for your stop can be found in the same way that [UK Transport](h
 
 However, there have been reports of missing ATCO codes. Therefore alternatively, you can follow the following instructions:
 
-1. Navigate to https://www.firstbus.co.uk/next-bus and type your location
+1. Navigate to [First Bus website](https://www.firstbus.co.uk/next-bus) and type your location
 2. Open up the development tools on your browser (usually F12) and go to the network tab
-3. Click on the stop that you're after and look at the network request. This should make a request to https://www.firstbus.co.uk/api/get-next-bus?stop=XXX. The value you're after will be in the response and also the value of XXX.
+3. Click on the stop that you're after and look at the network request. This should make a request to `https://www.firstbus.co.uk/api/get-next-bus?stop=XXX`. The value you're after will be in the response and also the value of XXX.
 
 ## How do I increase the logs for the integration?
 

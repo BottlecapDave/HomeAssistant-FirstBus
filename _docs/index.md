@@ -8,6 +8,23 @@ This is unofficial and in no way endorsed by First Bus.
     
     This component uses a private API used by [First Bus website](https://www.firstbus.co.uk/next-bus), so it could break at any time. I will do my best to keep the component working.
 
+## How to install
+
+### HACS
+
+[![hacs_badge](https://img.shields.io/badge/HACS-Default-41BDF5.svg?style=for-the-badge)](https://github.com/hacs/integration)
+
+This integration can be installed directly via HACS. To install:
+
+* [Add the repository](https://my.home-assistant.io/redirect/hacs_repository/?owner=BottlecapDave&repository=homeassistant-firstbus&category=integration) to your HACS installation
+* Click `Download`
+
+### Manual
+
+You should take the latest [published release](https://github.com/BottlecapDave/HomeAssistant-FirstBus/releases). The current state of `develop` will be in flux and therefore possibly subject to change.
+
+To install, place the contents of `custom_components` into the `<config directory>/custom_components` folder of your Home Assistant installation. Once installed, don't forget to restart your home assistant instance for the integration to be picked up.
+
 ## How to setup
 
 Please follow the [setup guide](./setup.md) to setup your initial account. This guide details the configuration, along with the entities that will be available to you.
