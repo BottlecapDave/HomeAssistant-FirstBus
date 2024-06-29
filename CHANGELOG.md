@@ -1,3 +1,11 @@
+## [2.0.1](https://github.com/BottlecapDave/HomeAssistant-FirstBus/compare/v2.0.0...v2.0.1) (2024-06-29)
+
+
+### Bug Fixes
+
+* Fixed ATCO link when setting up integration ([5dfdae5](https://github.com/BottlecapDave/HomeAssistant-FirstBus/commit/5dfdae5871c72c6e66b980193e87c76128726f89))
+* Fixed warning around use of deprecated HA function (15 minutes dev time) ([757e873](https://github.com/BottlecapDave/HomeAssistant-FirstBus/commit/757e87322b15bacf9fef75f7d1f155cf2402414b))
+
 # [2.0.0](https://github.com/BottlecapDave/HomeAssistant-FirstBus/compare/v1.2.0...v2.0.0) (2024-01-20)
 
 
