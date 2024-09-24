@@ -1,3 +1,10 @@
+## [2.0.2](https://github.com/BottlecapDave/HomeAssistant-FirstBus/compare/v2.0.1...v2.0.2) (2024-09-24)
+
+
+### Bug Fixes
+
+* Fixed buses attribute to only return target buses if specified ([a246509](https://github.com/BottlecapDave/HomeAssistant-FirstBus/commit/a246509b7d896cd8783e9095c7d45aabf1cb240d))
+
 ## [2.0.1](https://github.com/BottlecapDave/HomeAssistant-FirstBus/compare/v2.0.0...v2.0.1) (2024-06-29)
 
 
