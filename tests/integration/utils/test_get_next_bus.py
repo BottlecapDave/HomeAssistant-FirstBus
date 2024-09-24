@@ -25,7 +25,7 @@ async def test_when_get_next_bus_is_called_then_next_bus_is_returned(target_buse
         try:
             # Act
             bus_times = await client.async_get_bus_times(stop)
-            buses = get_buses(bus_times, now())
+            buses = get_buses(bus_times, now(), target_buses)
             assert buses is not None
             assert len(buses) > 0
             

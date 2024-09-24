@@ -82,7 +82,7 @@ class FirstBusNextBus(SensorEntity):
     data_last_updated = None
     if self._mins_since_last_update <= 0:
       bus_times = await self._client.async_get_bus_times(self._data[CONFIG_STOP])
-      buses = get_buses(bus_times, now())
+      buses = get_buses(bus_times, now(), self._data[CONFIG_BUSES])
       self._buses = buses
       self._mins_since_last_update = MINUTES_BETWEEN_UPDATES
       self._data_last_updated = now()

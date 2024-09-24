@@ -21,6 +21,11 @@ markdown_extensions:
   - toc:
       permalink: "#"
 
+plugins:
+  - search
+  - git-authors:
+      show_email_address: false
+
 theme:
   name: material
   features:
