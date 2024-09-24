@@ -10,10 +10,15 @@ from .const import (
 
 _LOGGER = logging.getLogger(__name__)
 
-def get_buses(bus_times: list, current_timestamp: datetime):
+def get_buses(bus_times: list, current_timestamp: datetime, target_buses: list[str]):
   _LOGGER.debug(f'buses: {bus_times}')
+
+  buses_to_return = []
   
   for bus_time in bus_times:
+    if (target_buses is not None and len(target_buses) > 0 and bus_time["service_number"] not in target_buses):
+      continue
+
     matches = re.search(REGEX_TIME, bus_time["due"])
     if (matches is not None):
       bus_time["due"] = parse_datetime(current_timestamp.strftime(f"%Y-%m-%dT{bus_time['due']}{current_timestamp.strftime('%z')}"))
@@ -30,8 +35,10 @@ def get_buses(bus_times: list, current_timestamp: datetime):
     if (bus_time["due"] < current_timestamp.replace(second=0, microsecond=0)):
       _LOGGER.debug(f'Moving due timestamp to next day: Due: {bus_time["due"]}; Current Timestamp: {current_timestamp}')
       bus_time["due"] = bus_time["due"] + timedelta(days=1)
+
+    buses_to_return.append(bus_time)
   
-  return bus_times
+  return buses_to_return
 
 def get_next_bus(bus_times: list, target_buses: list[str], current_timestamp: datetime):
   next_bus = None
