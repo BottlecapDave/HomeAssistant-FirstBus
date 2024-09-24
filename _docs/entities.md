@@ -20,7 +20,7 @@ The following attributes are available in addition
 | `due` | `datetime` | The timestamp of when the next bus is due |
 | `is_live` | `boolean` | Determines if the bus is being tracked (`true`) or is from the timetable (`false`) |
 | `stop` | `string` | The ATCO code of the bus stop that is being tracked |
-| `buses` | `list` | The collection of known upcoming buses for the stop |
+| `buses` | `list` | The collection of known upcoming buses for the stop, filtered to the selected buses if configured. |
 | `data_last_updated` | `datetime` | The timestamp when the underlying data was last updated |
 
 For each bus in `buses`, you can find the following attributes
