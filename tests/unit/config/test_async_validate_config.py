@@ -1,6 +1,6 @@
 from unittest import mock
 import pytest
-from custom_components.first_bus.config import async_validate_config
+from custom_components.first_bus.config import async_validate_main_config
 from custom_components.first_bus.const import CONFIG_NAME, CONFIG_STOP, CONFIG_BUSES
 from custom_components.first_bus.api_client import FirstBusApiClient
 
@@ -18,7 +18,7 @@ async def test_when_data_valid_then_no_errors_returned():
 
   # Act
   with mock.patch.multiple(FirstBusApiClient, async_get_bus_times=async_mocked_get_bus_times):
-    (errors, config) = await async_validate_config(original_config)
+    (errors, config) = await async_validate_main_config(original_config)
 
     # Assert
     assert CONFIG_NAME not in errors
@@ -45,7 +45,7 @@ async def test_when_buses_not_present_then_buses_empty_array():
 
   # Act
   with mock.patch.multiple(FirstBusApiClient, async_get_bus_times=async_mocked_get_bus_times):
-    (errors, config) = await async_validate_config(original_config)
+    (errors, config) = await async_validate_main_config(original_config)
 
     # Assert
     assert CONFIG_NAME not in errors
@@ -73,7 +73,7 @@ async def test_when_buses_none_then_buses_empty_array():
 
   # Act
   with mock.patch.multiple(FirstBusApiClient, async_get_bus_times=async_mocked_get_bus_times):
-    (errors, config) = await async_validate_config(original_config)
+    (errors, config) = await async_validate_main_config(original_config)
 
     # Assert
     assert CONFIG_NAME not in errors
@@ -101,7 +101,7 @@ async def test_when_buses_empty_then_buses_empty_array():
 
   # Act
   with mock.patch.multiple(FirstBusApiClient, async_get_bus_times=async_mocked_get_bus_times):
-    (errors, config) = await async_validate_config(original_config)
+    (errors, config) = await async_validate_main_config(original_config)
 
     # Assert
     assert CONFIG_NAME not in errors
@@ -133,7 +133,7 @@ async def test_when_buses_not_valid_then_buses_empty_array(bus_value: str):
 
   # Act
   with mock.patch.multiple(FirstBusApiClient, async_get_bus_times=async_mocked_get_bus_times):
-    (errors, config) = await async_validate_config(original_config)
+    (errors, config) = await async_validate_main_config(original_config)
 
     # Assert
     assert CONFIG_NAME not in errors
@@ -162,7 +162,7 @@ async def test_when_bus_stop_is_invalid_then_no_errors_returned():
 
   # Act
   with mock.patch.multiple(FirstBusApiClient, async_get_bus_times=async_mocked_get_bus_times):
-    (errors, config) = await async_validate_config(original_config)
+    (errors, config) = await async_validate_main_config(original_config)
 
     # Assert
     assert CONFIG_NAME not in errors

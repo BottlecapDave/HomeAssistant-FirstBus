@@ -21,7 +21,7 @@ def merge_config(data: dict, options: dict, updated_config: dict = None):
 
   return config
 
-async def async_validate_config(config: dict):
+async def async_validate_main_config(config: dict):
   new_config = dict(config)
   errors = {}
   client = FirstBusApiClient()
