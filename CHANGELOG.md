@@ -1,3 +1,10 @@
+## [2.0.3](https://github.com/BottlecapDave/HomeAssistant-FirstBus/compare/v2.0.2...v2.0.3) (2025-02-05)
+
+
+### Bug Fixes
+
+* Updated setup to check bus stop is recognised by First Bus (30 minutes dev time) ([ec4ca50](https://github.com/BottlecapDave/HomeAssistant-FirstBus/commit/ec4ca5073528dc94246ccf16ec7c7ebde5d7ea03))
+
 ## [2.0.2](https://github.com/BottlecapDave/HomeAssistant-FirstBus/compare/v2.0.1...v2.0.2) (2024-09-24)
 
 
