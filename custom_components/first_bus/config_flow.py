@@ -13,7 +13,7 @@ from .const import (
   DATA_SCHEMA_STOP,
 )
 
-from .config import merge_config, validate_config
+from .config import merge_config, async_validate_main_config
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -27,7 +27,7 @@ class FirstBusConfigFlow(ConfigFlow, domain=DOMAIN):
 
     errors = {}
     if user_input is not None:
-      (errors, config) = validate_config(user_input)
+      (errors, config) = await async_validate_main_config(user_input)
 
       # Setup our basic sensors
       if len(errors) < 1:
@@ -77,7 +77,7 @@ class OptionsFlowHandler(OptionsFlow):
 
     _LOGGER.debug(f"Update config {config}")
 
-    (errors, config) = validate_config(config)
+    (errors, config) = await async_validate_main_config(config)
 
     if len(errors) < 1:
       return self.async_create_entry(title="", data=config)

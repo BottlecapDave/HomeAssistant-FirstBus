@@ -13,7 +13,7 @@ class FirstBusApiClient:
         # Disable content type check as sometimes it can report text/html
         data = await response.json(content_type=None)
 
-        if ("times" in data):
+        if ("times" in data and "atcocode" in data):
           return list(map(lambda time: {
             "due": time["Due"],
             "service_ref": time["ServiceRef"],
@@ -22,4 +22,4 @@ class FirstBusApiClient:
             "is_live": True if time["IsLive"] == 'Y' or time["IsLive"] == 'y' else False
           }, data["times"]))
         
-        return []
+        return None

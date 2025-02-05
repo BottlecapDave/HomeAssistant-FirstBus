@@ -17,7 +17,8 @@
       }
     },
     "error": {
-      "invalid_buses": "Buses must be alphanumeric and spaces separated by commas"
+      "invalid_buses": "Buses must be alphanumeric and spaces separated by commas",
+      "invalid_stop": "Bus stop is not recognised by First Bus. Please check and try again."
     },
     "abort": {
     }
@@ -36,7 +37,8 @@
       }
     },
     "error": {
-      "invalid_buses": "Buses must be alphanumeric and spaces separated by commas"
+      "invalid_buses": "Buses must be alphanumeric and spaces separated by commas",
+      "invalid_stop": "Bus stop is not recognised by First Bus. Please check and try again."
     },
     "abort": {
     }
