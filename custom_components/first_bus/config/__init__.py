@@ -1,6 +1,8 @@
 import logging
 import re
-from ..const import CONFIG_BUSES, REGEX_BUSES
+
+from ..api_client import FirstBusApiClient
+from ..const import CONFIG_BUSES, CONFIG_STOP, REGEX_BUSES
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -19,9 +21,16 @@ def merge_config(data: dict, options: dict, updated_config: dict = None):
 
   return config
 
-def validate_config(config: dict):
+async def async_validate_config(config: dict):
   new_config = dict(config)
   errors = {}
+  client = FirstBusApiClient()
+
+  if CONFIG_STOP in new_config:
+    buses = await client.async_get_bus_times(new_config[CONFIG_STOP])
+    if buses is None:
+      errors[CONFIG_STOP] = "invalid_stop"
+
   if CONFIG_BUSES in new_config and new_config[CONFIG_BUSES] is not None and len(new_config[CONFIG_BUSES]) > 0:
     matches = re.search(REGEX_BUSES, new_config[CONFIG_BUSES])
     if (matches is None):

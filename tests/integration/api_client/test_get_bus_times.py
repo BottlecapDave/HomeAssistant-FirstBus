@@ -40,3 +40,12 @@ async def test_when_get_buses_is_called_then_next_bus_is_returned():
             pass
         
     assert passes > 0
+
+@pytest.mark.asyncio
+async def test_when_get_buses_is_called_with_invalid_stop_then_none_is_returned():
+    # Arrange
+    client = FirstBusApiClient()
+
+    # Act
+    buses = await client.async_get_bus_times("123")
+    assert buses is None
