@@ -1,3 +1,11 @@
+## [2.0.4](https://github.com/BottlecapDave/HomeAssistant-FirstBus/compare/v2.0.3...v2.0.4) (2025-03-13)
+
+
+### Bug Fixes
+
+* Added additional clarification to name (Thanks @ZackaryH8) ([78b3049](https://github.com/BottlecapDave/HomeAssistant-FirstBus/commit/78b3049fe832e1a721e7571406df144e1724cfaf))
+* Fixed issue with bus sensor throwing error if API returns invalid result (15 minutes dev time) ([634b8a8](https://github.com/BottlecapDave/HomeAssistant-FirstBus/commit/634b8a866af69d0d3170faaacdcee846cadd9045))
+
 ## [2.0.3](https://github.com/BottlecapDave/HomeAssistant-FirstBus/compare/v2.0.2...v2.0.3) (2025-02-05)
 
 
