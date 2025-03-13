@@ -145,3 +145,15 @@ async def test_when_subset_of_buses_looked_for_then_correct_bus_is_picked():
 
     assert "is_live" in next_bus
     assert next_bus["is_live"] == expected_next_bus["is_live"]
+
+  
+@pytest.mark.asyncio
+async def test_when_buses_is_none_then_none_is_returned():
+  # Arrange
+  buses = None
+
+  # Act
+  next_bus = get_next_bus(buses, ["12"], now)
+
+  # Assert
+  assert next_bus is None

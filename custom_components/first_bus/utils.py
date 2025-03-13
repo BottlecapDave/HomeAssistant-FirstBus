@@ -10,10 +10,12 @@ from .const import (
 
 _LOGGER = logging.getLogger(__name__)
 
-def get_buses(bus_times: list, current_timestamp: datetime, target_buses: list[str]):
+def get_buses(bus_times: list | None, current_timestamp: datetime, target_buses: list[str]):
   _LOGGER.debug(f'buses: {bus_times}')
 
   buses_to_return = []
+  if bus_times is None:
+    return None
   
   for bus_time in bus_times:
     if (target_buses is not None and len(target_buses) > 0 and bus_time["service_number"] not in target_buses):
@@ -40,13 +42,14 @@ def get_buses(bus_times: list, current_timestamp: datetime, target_buses: list[s
   
   return buses_to_return
 
-def get_next_bus(bus_times: list, target_buses: list[str], current_timestamp: datetime):
+def get_next_bus(bus_times: list | None, target_buses: list[str], current_timestamp: datetime):
   next_bus = None
-  for bus_time in bus_times:
-    if (target_buses is None or len(target_buses) == 0 or bus_time["service_number"] in target_buses):
+  if bus_times is not None:
+    for bus_time in bus_times:
+      if (target_buses is None or len(target_buses) == 0 or bus_time["service_number"] in target_buses):
 
-      if bus_time["due"] >= current_timestamp.replace(second=0, microsecond=0) and (next_bus is None or next_bus["due"] > bus_time["due"]):
-        next_bus = bus_time
+        if bus_time["due"] >= current_timestamp.replace(second=0, microsecond=0) and (next_bus is None or next_bus["due"] > bus_time["due"]):
+          next_bus = bus_time
 
   return next_bus
 
