@@ -11,7 +11,7 @@
           "Buses": "Buses"
         },
         "data_description": {
-          "Name": "This is the name to help identify the stop. It will also be used in any created sensors. (sensor.first_bus_<<NAME_OF_SENSOR>>_next_bus)",
+          "Name": "This is the name to help identify the stop. It will also be used in any created sensors. (sensor.first_bus_{{NAME_OF_SENSOR}}_next_bus)",
           "Stop": "Instructions to find your ATCO code can be found at https://bottlecapdave.github.io/HomeAssistant-FirstBus/faq/#how-do-i-find-my-atco-code",
           "Buses": "You can filter to specific buses, comma separated, or leave blank to see all buses"
         }
