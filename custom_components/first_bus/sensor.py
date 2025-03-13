@@ -88,7 +88,7 @@ class FirstBusNextBus(SensorEntity):
       self._data_last_updated = now()
     
     next_bus = get_next_bus(self._buses, self._data[CONFIG_BUSES], now())
-    self._attributes = copy.copy(next_bus)
+    self._attributes = copy.copy(next_bus) if next_bus is not None else None
     if (self._attributes is None):
       self._attributes = {}
     

@@ -136,3 +136,14 @@ async def test_when_target_buses_specified_then_only_those_buses_are_returned():
 
   assert "is_live" in bus
   assert bus["is_live"] == raw_bus["is_live"]
+
+@pytest.mark.asyncio
+async def test_when_bus_times_is_none_then_none_is_returned():
+  # Arrange
+  bus_times = None
+
+  # Act
+  buses = get_buses(bus_times, now, ["42"])
+
+  # Assert
+  assert buses is None
