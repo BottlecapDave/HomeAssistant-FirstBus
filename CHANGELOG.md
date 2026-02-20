@@ -1,3 +1,11 @@
+## [2.0.5](https://github.com/BottlecapDave/HomeAssistant-FirstBus/compare/v2.0.4...v2.0.5) (2026-02-20)
+
+
+### Bug Fixes
+
+* Added additional checks that bus stops haven't already been configured ([a9bb88e](https://github.com/BottlecapDave/HomeAssistant-FirstBus/commit/a9bb88edb6a56392da713041883784ce5883035a))
+* Fixed translation issue (15 minutes dev time) ([b83770a](https://github.com/BottlecapDave/HomeAssistant-FirstBus/commit/b83770a427b16ea7e11a56e614de5f602e4f1626))
+
 ## [2.0.4](https://github.com/BottlecapDave/HomeAssistant-FirstBus/compare/v2.0.3...v2.0.4) (2025-03-13)
 
 

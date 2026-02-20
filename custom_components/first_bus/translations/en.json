@@ -11,15 +11,16 @@
           "Buses": "Buses"
         },
         "data_description": {
-          "Name": "This is the name to help identify the stop. It will also be used in any created sensors. (sensor.first_bus_{{NAME_OF_SENSOR}}_next_bus)",
-          "Stop": "Instructions to find your ATCO code can be found at https://bottlecapdave.github.io/HomeAssistant-FirstBus/faq/#how-do-i-find-my-atco-code",
+          "Name": "This is the name to help identify the stop. It will also be used in any created sensors. (sensor.first_bus_NAME_OF_SENSOR_next_bus)",
+          "Stop": "Instructions to find your ATCO code can be found at {faq_atco_code_url}",
           "Buses": "You can filter to specific buses, comma separated, or leave blank to see all buses"
         }
       }
     },
     "error": {
       "invalid_buses": "Buses must be alphanumeric and spaces separated by commas",
-      "invalid_stop": "Bus stop is not recognised by First Bus. Please check and try again."
+      "invalid_stop": "Bus stop is not recognised by First Bus. Please check and try again.",
+      "duplicate_stop": "This bus stop has already been configured. Please check and try again."
     },
     "abort": {
     }
