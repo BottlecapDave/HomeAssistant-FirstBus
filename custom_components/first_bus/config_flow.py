@@ -17,6 +17,10 @@ from .config import merge_config, async_validate_main_config
 
 _LOGGER = logging.getLogger(__name__)
 
+description_placeholders = {
+  "faq_atco_code_url": "https://bottlecapdave.github.io/HomeAssistant-FirstBus/faq/#how-do-i-find-my-atco-code",
+}
+
 class FirstBusConfigFlow(ConfigFlow, domain=DOMAIN): 
   """Config flow."""
 
@@ -37,7 +41,7 @@ class FirstBusConfigFlow(ConfigFlow, domain=DOMAIN):
         )
 
     return self.async_show_form(
-      step_id="user", data_schema=DATA_SCHEMA_STOP, errors=errors
+      step_id="user", data_schema=DATA_SCHEMA_STOP, errors=errors, description_placeholders=description_placeholders
     )
 
   @staticmethod
@@ -65,7 +69,8 @@ class OptionsFlowHandler(OptionsFlow):
         {
           CONFIG_BUSES: ','.join(config[CONFIG_BUSES])
         }
-      )
+      ),
+      description_placeholders=description_placeholders
     )
 
   async def async_step_user(self, user_input):
@@ -92,5 +97,6 @@ class OptionsFlowHandler(OptionsFlow):
           CONFIG_BUSES: ','.join(config[CONFIG_BUSES])
         }
       ),
+      description_placeholders=description_placeholders,
       errors=errors
     )
