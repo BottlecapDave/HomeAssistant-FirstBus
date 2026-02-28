@@ -21,7 +21,7 @@ def merge_config(data: dict, options: dict, updated_config: dict = None):
 
   return config
 
-async def async_validate_main_config(config: dict):
+async def async_validate_main_config(config: dict, existing_atco_codes: list[str] = []):
   new_config = dict(config)
   errors = {}
   client = FirstBusApiClient()
@@ -30,6 +30,8 @@ async def async_validate_main_config(config: dict):
     buses = await client.async_get_bus_times(new_config[CONFIG_STOP])
     if buses is None:
       errors[CONFIG_STOP] = "invalid_stop"
+    elif new_config[CONFIG_STOP] in existing_atco_codes:
+      errors[CONFIG_STOP] = "duplicate_stop"
 
   if CONFIG_BUSES in new_config and new_config[CONFIG_BUSES] is not None and len(new_config[CONFIG_BUSES]) > 0:
     matches = re.search(REGEX_BUSES, new_config[CONFIG_BUSES])

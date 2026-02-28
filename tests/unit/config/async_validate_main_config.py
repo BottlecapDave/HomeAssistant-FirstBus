@@ -176,3 +176,32 @@ async def test_when_bus_stop_is_invalid_then_no_errors_returned():
     assert config[CONFIG_STOP] == original_config[CONFIG_STOP]
     assert CONFIG_BUSES in config
     assert config[CONFIG_BUSES] == []
+
+@pytest.mark.asyncio
+async def test_when_atco_code_is_duplicate_then_error_returned():
+  # Arrange
+  original_config = {
+    CONFIG_NAME: "test",
+    CONFIG_STOP: "123"
+  }
+  existing_atco_codes = [original_config[CONFIG_STOP]]
+
+  async def async_mocked_get_bus_times(*args, **kwargs):
+    return []
+
+  # Act
+  with mock.patch.multiple(FirstBusApiClient, async_get_bus_times=async_mocked_get_bus_times):
+    (errors, config) = await async_validate_main_config(original_config, existing_atco_codes)
+
+    # Assert
+    assert CONFIG_NAME not in errors
+    assert CONFIG_BUSES not in errors
+    assert CONFIG_STOP in errors
+    assert errors[CONFIG_STOP] == "duplicate_stop"
+
+    assert CONFIG_NAME in config
+    assert config[CONFIG_NAME] == original_config[CONFIG_NAME]
+    assert CONFIG_STOP in config
+    assert config[CONFIG_STOP] == original_config[CONFIG_STOP]
+    assert CONFIG_BUSES in config
+    assert config[CONFIG_BUSES] == []

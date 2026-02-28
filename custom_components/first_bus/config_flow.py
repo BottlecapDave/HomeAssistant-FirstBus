@@ -5,6 +5,7 @@ from homeassistant.config_entries import (ConfigFlow, OptionsFlow)
 from homeassistant.core import callback
 
 from .const import (
+  CONFIG_STOP,
   DOMAIN,
 
   CONFIG_NAME,
@@ -17,6 +18,18 @@ from .config import merge_config, async_validate_main_config
 
 _LOGGER = logging.getLogger(__name__)
 
+def get_atco_codes(hass):
+  atco_codes: list[str] = []  
+  for entry in hass.config_entries.async_entries(DOMAIN, include_ignore=False):
+    atco_code = entry.data[CONFIG_STOP]
+    atco_codes.append(atco_code)
+
+  return atco_codes
+
+description_placeholders = {
+  "faq_atco_code_url": "https://bottlecapdave.github.io/HomeAssistant-FirstBus/faq/#how-do-i-find-my-atco-code",
+}
+
 class FirstBusConfigFlow(ConfigFlow, domain=DOMAIN): 
   """Config flow."""
 
@@ -27,7 +40,8 @@ class FirstBusConfigFlow(ConfigFlow, domain=DOMAIN):
 
     errors = {}
     if user_input is not None:
-      (errors, config) = await async_validate_main_config(user_input)
+      atco_codes = get_atco_codes(self.hass)
+      (errors, config) = await async_validate_main_config(user_input, atco_codes)
 
       # Setup our basic sensors
       if len(errors) < 1:
@@ -37,7 +51,7 @@ class FirstBusConfigFlow(ConfigFlow, domain=DOMAIN):
         )
 
     return self.async_show_form(
-      step_id="user", data_schema=DATA_SCHEMA_STOP, errors=errors
+      step_id="user", data_schema=DATA_SCHEMA_STOP, errors=errors, description_placeholders=description_placeholders
     )
 
   @staticmethod
@@ -65,7 +79,8 @@ class OptionsFlowHandler(OptionsFlow):
         {
           CONFIG_BUSES: ','.join(config[CONFIG_BUSES])
         }
-      )
+      ),
+      description_placeholders=description_placeholders
     )
 
   async def async_step_user(self, user_input):
@@ -92,5 +107,6 @@ class OptionsFlowHandler(OptionsFlow):
           CONFIG_BUSES: ','.join(config[CONFIG_BUSES])
         }
       ),
+      description_placeholders=description_placeholders,
       errors=errors
     )
